@@ -1,0 +1,480 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="daQ-0k-TwP">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Documents Scanner-->
+        <scene sceneID="9bA-fp-LKY">
+            <objects>
+                <tableViewController id="emj-hb-pxf" customClass="PassportViewController" customModule="DocumentsOCR_Example" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="SFL-DF-P8z">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <imageView key="tableHeaderView" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="m4h-kz-Ry2">
+                            <rect key="frame" x="0.0" y="64" width="375" height="90"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" red="0.53752003205128207" green="0.53752003205128207" blue="0.53752003205128207" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </imageView>
+                        <sections>
+                            <tableViewSection id="i4u-zY-C5t">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="66" id="w3V-S6-g0i">
+                                        <rect key="frame" x="0.0" y="154" width="375" height="66"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="w3V-S6-g0i" id="1Uf-5t-o32">
+                                            <frame key="frameInset" width="375" height="65"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Выпускающая страна" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I40-Fm-A5V">
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="178" id="f89-jB-9ku"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lWJ-7C-0SP">
+                                                    <frame key="frameInset" minX="158" minY="18" width="97" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ncQ-oa-e8J" customClass="PassportTextField" customModule="DocumentsOCR_Example" customModuleProvider="target">
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" autocorrectionType="no" spellCheckingType="no"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="editTypeValue" value="Country"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="I40-Fm-A5V" firstAttribute="bottom" secondItem="1Uf-5t-o32" secondAttribute="bottomMargin" id="6YV-QN-Nu2"/>
+                                                <constraint firstItem="I40-Fm-A5V" firstAttribute="bottom" secondItem="ncQ-oa-e8J" secondAttribute="bottom" id="AFv-kP-48M"/>
+                                                <constraint firstItem="ncQ-oa-e8J" firstAttribute="trailing" secondItem="1Uf-5t-o32" secondAttribute="trailingMargin" id="I0s-5f-ik3"/>
+                                                <constraint firstItem="I40-Fm-A5V" firstAttribute="top" secondItem="1Uf-5t-o32" secondAttribute="topMargin" id="U25-aa-DBl"/>
+                                                <constraint firstItem="I40-Fm-A5V" firstAttribute="top" secondItem="ncQ-oa-e8J" secondAttribute="top" id="Xey-Kh-3ep"/>
+                                                <constraint firstItem="I40-Fm-A5V" firstAttribute="leading" secondItem="1Uf-5t-o32" secondAttribute="leadingMargin" id="yUE-ir-jJg"/>
+                                                <constraint firstItem="ncQ-oa-e8J" firstAttribute="leading" secondItem="I40-Fm-A5V" secondAttribute="trailing" constant="8" symbolic="YES" id="z5J-C9-Ict"/>
+                                            </constraints>
+                                            <variation key="default">
+                                                <mask key="subviews">
+                                                    <exclude reference="lWJ-7C-0SP"/>
+                                                </mask>
+                                            </variation>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="66" id="QvW-RM-RVb">
+                                        <rect key="frame" x="0.0" y="220" width="375" height="66"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="QvW-RM-RVb" id="QSb-Su-7po">
+                                            <frame key="frameInset" width="375" height="65"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Фамилия" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2G4-OG-gF8">
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="160" id="Lng-KN-xof"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vLL-NZ-pIL">
+                                                    <frame key="frameInset" minX="158" minY="18" width="97" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="IFu-EM-ROx" customClass="PassportTextField" customModule="DocumentsOCR_Example" customModuleProvider="target">
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" autocorrectionType="no" spellCheckingType="no"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="editTypeValue" value="Name"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="2G4-OG-gF8" firstAttribute="bottom" secondItem="IFu-EM-ROx" secondAttribute="bottom" id="10w-0h-twt"/>
+                                                <constraint firstItem="2G4-OG-gF8" firstAttribute="top" secondItem="IFu-EM-ROx" secondAttribute="top" id="2jx-0D-fmv"/>
+                                                <constraint firstItem="2G4-OG-gF8" firstAttribute="leading" secondItem="QSb-Su-7po" secondAttribute="leadingMargin" id="K8T-BD-NqH"/>
+                                                <constraint firstItem="IFu-EM-ROx" firstAttribute="leading" secondItem="2G4-OG-gF8" secondAttribute="trailing" constant="7" id="LPe-Bt-DX9"/>
+                                                <constraint firstItem="IFu-EM-ROx" firstAttribute="trailing" secondItem="QSb-Su-7po" secondAttribute="trailingMargin" id="g65-zM-52m"/>
+                                                <constraint firstItem="2G4-OG-gF8" firstAttribute="top" secondItem="QSb-Su-7po" secondAttribute="topMargin" id="hn8-Of-FWu"/>
+                                                <constraint firstItem="2G4-OG-gF8" firstAttribute="bottom" secondItem="QSb-Su-7po" secondAttribute="bottomMargin" id="wuI-VP-QlV"/>
+                                            </constraints>
+                                            <variation key="default">
+                                                <mask key="subviews">
+                                                    <exclude reference="vLL-NZ-pIL"/>
+                                                </mask>
+                                            </variation>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="66" id="VZv-L6-qF4">
+                                        <rect key="frame" x="0.0" y="286" width="375" height="66"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="VZv-L6-qF4" id="Gik-AE-HKx">
+                                            <frame key="frameInset" width="375" height="65"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Имя" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7ln-lu-1v3">
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="160" id="9sD-9A-VbA"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pzW-pE-ecY">
+                                                    <frame key="frameInset" minX="158" minY="18" width="97" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0mS-pd-GtD" customClass="PassportTextField" customModule="DocumentsOCR_Example" customModuleProvider="target">
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" autocorrectionType="no" spellCheckingType="no"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="editTypeValue" value="Name"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="0mS-pd-GtD" firstAttribute="trailing" secondItem="Gik-AE-HKx" secondAttribute="trailingMargin" id="9z2-MK-ejM"/>
+                                                <constraint firstItem="7ln-lu-1v3" firstAttribute="top" secondItem="Gik-AE-HKx" secondAttribute="topMargin" id="AbG-Tv-3FH"/>
+                                                <constraint firstItem="7ln-lu-1v3" firstAttribute="top" secondItem="0mS-pd-GtD" secondAttribute="top" id="E4m-1t-A3U"/>
+                                                <constraint firstItem="7ln-lu-1v3" firstAttribute="bottom" secondItem="0mS-pd-GtD" secondAttribute="bottom" id="UhU-QE-Ozv"/>
+                                                <constraint firstItem="7ln-lu-1v3" firstAttribute="bottom" secondItem="Gik-AE-HKx" secondAttribute="bottomMargin" id="VvF-3N-QC9"/>
+                                                <constraint firstItem="0mS-pd-GtD" firstAttribute="leading" secondItem="7ln-lu-1v3" secondAttribute="trailing" constant="7" id="egZ-wL-Ilg"/>
+                                                <constraint firstItem="7ln-lu-1v3" firstAttribute="leading" secondItem="Gik-AE-HKx" secondAttribute="leadingMargin" id="tOz-XD-oSL"/>
+                                            </constraints>
+                                            <variation key="default">
+                                                <mask key="subviews">
+                                                    <exclude reference="pzW-pE-ecY"/>
+                                                </mask>
+                                            </variation>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="66" id="Nac-u5-yO4">
+                                        <rect key="frame" x="0.0" y="352" width="375" height="66"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Nac-u5-yO4" id="58S-q5-nII">
+                                            <frame key="frameInset" width="375" height="65"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Номер" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IVt-iI-hFA">
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="160" id="nd2-q7-2z7"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vPS-VQ-3fa">
+                                                    <frame key="frameInset" minX="158" minY="18" width="97" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dmg-Io-1BO" customClass="PassportTextField" customModule="DocumentsOCR_Example" customModuleProvider="target">
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" autocorrectionType="no" spellCheckingType="no"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="editTypeValue" value="None"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="IVt-iI-hFA" firstAttribute="top" secondItem="58S-q5-nII" secondAttribute="topMargin" id="0tK-f6-ubG"/>
+                                                <constraint firstItem="dmg-Io-1BO" firstAttribute="trailing" secondItem="58S-q5-nII" secondAttribute="trailingMargin" id="8Sg-ZL-bLJ"/>
+                                                <constraint firstItem="IVt-iI-hFA" firstAttribute="top" secondItem="dmg-Io-1BO" secondAttribute="top" id="GTK-pk-Ory"/>
+                                                <constraint firstItem="IVt-iI-hFA" firstAttribute="bottom" secondItem="58S-q5-nII" secondAttribute="bottomMargin" id="L30-RA-gmk"/>
+                                                <constraint firstItem="IVt-iI-hFA" firstAttribute="bottom" secondItem="dmg-Io-1BO" secondAttribute="bottom" id="gya-Xw-BbM"/>
+                                                <constraint firstItem="IVt-iI-hFA" firstAttribute="leading" secondItem="58S-q5-nII" secondAttribute="leadingMargin" id="mSE-ph-MMB"/>
+                                                <constraint firstItem="dmg-Io-1BO" firstAttribute="leading" secondItem="IVt-iI-hFA" secondAttribute="trailing" constant="7" id="sNz-Zy-5Pq"/>
+                                            </constraints>
+                                            <variation key="default">
+                                                <mask key="subviews">
+                                                    <exclude reference="vPS-VQ-3fa"/>
+                                                </mask>
+                                            </variation>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="66" id="vdP-7h-8K3">
+                                        <rect key="frame" x="0.0" y="418" width="375" height="66"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="vdP-7h-8K3" id="Ki1-Q9-VMT">
+                                            <frame key="frameInset" width="375" height="65"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3dC-1U-poO" customClass="PassportTextField" customModule="DocumentsOCR_Example" customModuleProvider="target">
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" autocorrectionType="no" spellCheckingType="no"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="editTypeValue" value="Country"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </textField>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Национальность" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="77b-iX-RR6">
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="160" id="DI8-94-NIR"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FAz-sb-CoC">
+                                                    <frame key="frameInset" minX="158" minY="18" width="97" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="3dC-1U-poO" firstAttribute="trailing" secondItem="Ki1-Q9-VMT" secondAttribute="trailingMargin" id="CF8-CI-h3V"/>
+                                                <constraint firstItem="77b-iX-RR6" firstAttribute="leading" secondItem="Ki1-Q9-VMT" secondAttribute="leadingMargin" id="Vb4-We-s5m"/>
+                                                <constraint firstItem="77b-iX-RR6" firstAttribute="top" secondItem="Ki1-Q9-VMT" secondAttribute="topMargin" id="cPu-cX-sEQ"/>
+                                                <constraint firstItem="77b-iX-RR6" firstAttribute="bottom" secondItem="Ki1-Q9-VMT" secondAttribute="bottomMargin" id="cgC-4L-tcf"/>
+                                                <constraint firstItem="77b-iX-RR6" firstAttribute="top" secondItem="3dC-1U-poO" secondAttribute="top" id="hbJ-lQ-0ui"/>
+                                                <constraint firstItem="77b-iX-RR6" firstAttribute="bottom" secondItem="3dC-1U-poO" secondAttribute="bottom" id="oFs-Kn-lHp"/>
+                                                <constraint firstItem="3dC-1U-poO" firstAttribute="leading" secondItem="77b-iX-RR6" secondAttribute="trailing" constant="7" id="tcw-Ll-hV4"/>
+                                            </constraints>
+                                            <variation key="default">
+                                                <mask key="subviews">
+                                                    <exclude reference="FAz-sb-CoC"/>
+                                                </mask>
+                                            </variation>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="66" id="nWJ-6j-2gn">
+                                        <rect key="frame" x="0.0" y="484" width="375" height="66"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nWJ-6j-2gn" id="gXi-lM-jGV">
+                                            <frame key="frameInset" width="375" height="65"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0KI-Lv-x3e" customClass="PassportTextField" customModule="DocumentsOCR_Example" customModuleProvider="target">
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" autocorrectionType="no" spellCheckingType="no"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="editTypeValue" value="Date"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </textField>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Дата рождения" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qOX-us-M0k">
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="160" id="Q08-r7-c62"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FsS-M3-7Ua">
+                                                    <frame key="frameInset" minX="158" minY="18" width="97" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="0KI-Lv-x3e" firstAttribute="trailing" secondItem="gXi-lM-jGV" secondAttribute="trailingMargin" id="3OC-We-3l2"/>
+                                                <constraint firstItem="qOX-us-M0k" firstAttribute="bottom" secondItem="0KI-Lv-x3e" secondAttribute="bottom" id="Gcg-aI-MAD"/>
+                                                <constraint firstItem="qOX-us-M0k" firstAttribute="leading" secondItem="gXi-lM-jGV" secondAttribute="leadingMargin" id="Q4r-F4-4Us"/>
+                                                <constraint firstItem="qOX-us-M0k" firstAttribute="top" secondItem="0KI-Lv-x3e" secondAttribute="top" id="WGQ-Rm-wF9"/>
+                                                <constraint firstItem="qOX-us-M0k" firstAttribute="bottom" secondItem="gXi-lM-jGV" secondAttribute="bottomMargin" id="cx6-yX-QNh"/>
+                                                <constraint firstItem="0KI-Lv-x3e" firstAttribute="leading" secondItem="qOX-us-M0k" secondAttribute="trailing" constant="7" id="mVN-RV-oWs"/>
+                                                <constraint firstItem="qOX-us-M0k" firstAttribute="top" secondItem="gXi-lM-jGV" secondAttribute="topMargin" id="veJ-b7-Ree"/>
+                                            </constraints>
+                                            <variation key="default">
+                                                <mask key="subviews">
+                                                    <exclude reference="FsS-M3-7Ua"/>
+                                                </mask>
+                                            </variation>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="66" id="NZ6-gq-KyE">
+                                        <rect key="frame" x="0.0" y="550" width="375" height="66"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="NZ6-gq-KyE" id="ep4-dI-S5o">
+                                            <frame key="frameInset" width="375" height="65"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Пол" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H0A-4b-jQn">
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="160" id="vPs-du-LSm"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zy9-v2-PZO">
+                                                    <frame key="frameInset" minX="158" minY="18" width="97" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="c6k-ue-4F2" customClass="PassportTextField" customModule="DocumentsOCR_Example" customModuleProvider="target">
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" autocorrectionType="no" spellCheckingType="no"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="editTypeValue" value="Sex"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="c6k-ue-4F2" firstAttribute="trailing" secondItem="ep4-dI-S5o" secondAttribute="trailingMargin" id="BNe-GD-lfo"/>
+                                                <constraint firstItem="c6k-ue-4F2" firstAttribute="leading" secondItem="H0A-4b-jQn" secondAttribute="trailing" constant="7" id="EXf-E3-HEP"/>
+                                                <constraint firstItem="H0A-4b-jQn" firstAttribute="bottom" secondItem="c6k-ue-4F2" secondAttribute="bottom" id="Ggk-pL-zbP"/>
+                                                <constraint firstItem="H0A-4b-jQn" firstAttribute="top" secondItem="c6k-ue-4F2" secondAttribute="top" id="QcT-kN-rnk"/>
+                                                <constraint firstItem="H0A-4b-jQn" firstAttribute="bottom" secondItem="ep4-dI-S5o" secondAttribute="bottomMargin" id="UOp-66-hOx"/>
+                                                <constraint firstItem="H0A-4b-jQn" firstAttribute="top" secondItem="ep4-dI-S5o" secondAttribute="topMargin" id="dfe-D2-VnN"/>
+                                                <constraint firstItem="H0A-4b-jQn" firstAttribute="leading" secondItem="ep4-dI-S5o" secondAttribute="leadingMargin" id="mPb-7c-fLR"/>
+                                            </constraints>
+                                            <variation key="default">
+                                                <mask key="subviews">
+                                                    <exclude reference="zy9-v2-PZO"/>
+                                                </mask>
+                                            </variation>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="66" id="5Cw-cg-xba">
+                                        <rect key="frame" x="0.0" y="616" width="375" height="66"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5Cw-cg-xba" id="HJ9-af-ld2">
+                                            <frame key="frameInset" width="375" height="65"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="X5z-SK-Qne" customClass="PassportTextField" customModule="DocumentsOCR_Example" customModuleProvider="target">
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" autocorrectionType="no" spellCheckingType="no"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="editTypeValue" value="Date"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </textField>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Окончание срока действия" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dGu-jc-h7R">
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="225" id="Mt4-b6-j4e"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sv9-j4-wYn">
+                                                    <frame key="frameInset" minX="158" minY="18" width="97" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="dGu-jc-h7R" firstAttribute="top" secondItem="HJ9-af-ld2" secondAttribute="topMargin" id="Alo-nJ-qKC"/>
+                                                <constraint firstItem="X5z-SK-Qne" firstAttribute="trailing" secondItem="HJ9-af-ld2" secondAttribute="trailingMargin" id="Dwj-9x-oim"/>
+                                                <constraint firstItem="dGu-jc-h7R" firstAttribute="bottom" secondItem="HJ9-af-ld2" secondAttribute="bottomMargin" id="EkB-hH-cSd"/>
+                                                <constraint firstItem="dGu-jc-h7R" firstAttribute="bottom" secondItem="X5z-SK-Qne" secondAttribute="bottom" id="WP1-NN-FOq"/>
+                                                <constraint firstItem="dGu-jc-h7R" firstAttribute="leading" secondItem="HJ9-af-ld2" secondAttribute="leadingMargin" id="fTS-jS-JT2"/>
+                                                <constraint firstItem="dGu-jc-h7R" firstAttribute="top" secondItem="X5z-SK-Qne" secondAttribute="top" id="lcN-JO-VaV"/>
+                                                <constraint firstItem="X5z-SK-Qne" firstAttribute="leading" secondItem="dGu-jc-h7R" secondAttribute="trailing" constant="8" symbolic="YES" id="vlW-ND-zSz"/>
+                                            </constraints>
+                                            <variation key="default">
+                                                <mask key="subviews">
+                                                    <exclude reference="sv9-j4-wYn"/>
+                                                </mask>
+                                            </variation>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="66" id="EKR-ZQ-Hie">
+                                        <rect key="frame" x="0.0" y="682" width="375" height="66"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="EKR-ZQ-Hie" id="PQE-Sd-PhW">
+                                            <frame key="frameInset" width="375" height="65"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4IY-BG-79K" customClass="PassportTextField" customModule="DocumentsOCR_Example" customModuleProvider="target">
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" autocorrectionType="no" spellCheckingType="no"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="editTypeValue" value="Date"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </textField>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Персональный номер" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BjQ-Vu-JjL">
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="225" id="MTJ-hA-AkR"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fs7-Mv-UqI">
+                                                    <frame key="frameInset" minX="158" minY="18" width="97" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="BjQ-Vu-JjL" firstAttribute="top" secondItem="PQE-Sd-PhW" secondAttribute="topMargin" id="0cw-rG-9Fe"/>
+                                                <constraint firstItem="4IY-BG-79K" firstAttribute="leading" secondItem="BjQ-Vu-JjL" secondAttribute="trailing" constant="8" symbolic="YES" id="M2g-V1-vCv"/>
+                                                <constraint firstItem="4IY-BG-79K" firstAttribute="trailing" secondItem="PQE-Sd-PhW" secondAttribute="trailingMargin" id="RXP-w9-Kj0"/>
+                                                <constraint firstItem="BjQ-Vu-JjL" firstAttribute="bottom" secondItem="4IY-BG-79K" secondAttribute="bottom" id="UoG-e4-4cF"/>
+                                                <constraint firstItem="BjQ-Vu-JjL" firstAttribute="leading" secondItem="PQE-Sd-PhW" secondAttribute="leadingMargin" id="fEm-ng-Rdx"/>
+                                                <constraint firstItem="BjQ-Vu-JjL" firstAttribute="top" secondItem="4IY-BG-79K" secondAttribute="top" id="pin-j8-eLm"/>
+                                                <constraint firstItem="BjQ-Vu-JjL" firstAttribute="bottom" secondItem="PQE-Sd-PhW" secondAttribute="bottomMargin" id="tF0-oJ-doj"/>
+                                            </constraints>
+                                            <variation key="default">
+                                                <mask key="subviews">
+                                                    <exclude reference="fs7-Mv-UqI"/>
+                                                </mask>
+                                            </variation>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="emj-hb-pxf" id="EPh-nF-aSv"/>
+                            <outlet property="delegate" destination="emj-hb-pxf" id="U9m-91-A1m"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Documents Scanner" id="GFO-x3-dvW">
+                        <barButtonItem key="rightBarButtonItem" systemItem="camera" id="CKx-18-li0">
+                            <connections>
+                                <action selector="cameraClicked:" destination="emj-hb-pxf" id="5Qq-w5-h0Y"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="cameraImageView" destination="m4h-kz-Ry2" id="eaQ-nM-g3q"/>
+                        <outlet property="countryField" destination="ncQ-oa-e8J" id="SJw-xe-IZx"/>
+                        <outlet property="dobField" destination="0KI-Lv-x3e" id="785-HY-Bam"/>
+                        <outlet property="expiredDateField" destination="X5z-SK-Qne" id="3cB-92-V5D"/>
+                        <outlet property="nameField" destination="0mS-pd-GtD" id="faE-Sh-m6g"/>
+                        <outlet property="nationalityField" destination="3dC-1U-poO" id="wk5-7d-AGJ"/>
+                        <outlet property="numberField" destination="dmg-Io-1BO" id="cA1-aJ-MUr"/>
+                        <outlet property="personalNumberField" destination="4IY-BG-79K" id="M0G-YV-c17"/>
+                        <outlet property="sexField" destination="c6k-ue-4F2" id="Vsh-vn-0yr"/>
+                        <outlet property="surnameField" destination="IFu-EM-ROx" id="b74-X6-eMO"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vUd-xP-Wa8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-55.5" y="562.5"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="qpN-5j-NO0">
+            <objects>
+                <navigationController id="daQ-0k-TwP" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="9vZ-RM-brw">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="emj-hb-pxf" kind="relationship" relationship="rootViewController" id="P9m-jo-lM3"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Fh3-ic-RE3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-694" y="563"/>
+        </scene>
+    </scenes>
+</document>

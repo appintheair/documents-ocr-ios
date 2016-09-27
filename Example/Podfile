@@ -1,0 +1,12 @@
+use_frameworks!
+
+target 'DocumentsOCR_Example' do
+  pod 'DocumentsOCR', :path => '../'
+
+  target 'DocumentsOCR_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
+
