@@ -33,6 +33,8 @@ it, simply add the following line to your Podfile:
 pod "DocumentsOCR"
 ```
 
+You also need to set `Enable Bitcode` value to "No" in tesseract framework (target TesseractOCRiOS -> Build settings -> Enable Bitcode)
+
 ## Usage
 
 ### Import DocumentsOCR framework
