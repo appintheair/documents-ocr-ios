@@ -377,6 +377,7 @@
 		87146D1517C67ADAD4F382AA6C9E8091 /* GPUImagePoissonBlendFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = F31D90954D1C5C94C488F03F19C18E11 /* GPUImagePoissonBlendFilter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		878CB49EAF93E67D0CE573F9EBC2621B /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7EBF76A088663CD2F5ADC997496EB52 /* CoreMedia.framework */; };
 		87AE891CCC6DBA0CD6D2426395B79666 /* GPUImageTiltShiftFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = A70FF2F3BA59E0DB761C106F19B8E53A /* GPUImageTiltShiftFilter.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		87C32EF51D9C0B8800940E0E /* CreateCodeOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C32EF41D9C0B8800940E0E /* CreateCodeOperation.swift */; };
 		882BAE06F58E917B4C8417350B84FD8E /* GPUImageHalftoneFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = EB16D700AA7DB166795F7C2493F928E5 /* GPUImageHalftoneFilter.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		8853D46D5B5B1B446BA1797DAE1D2DC1 /* GPUImageFilterPipeline.m in Sources */ = {isa = PBXBuildFile; fileRef = 91D0F8F05801E26B3698EA830D1851AF /* GPUImageFilterPipeline.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		886FB17D4C68DC7B083D5B59BD7F25A8 /* G8RecognizedBlock.h in Headers */ = {isa = PBXBuildFile; fileRef = 1541BA60A94C01A618566786F9D1317A /* G8RecognizedBlock.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1207,6 +1208,7 @@
 		86F4BC858A52A32190A57A5E14D9E7E9 /* Pods-DocumentsOCR_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-DocumentsOCR_Example.modulemap"; sourceTree = "<group>"; };
 		86F77EAACA3B4B5CE152446694442CC2 /* Pods-DocumentsOCR_Tests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-DocumentsOCR_Tests-resources.sh"; sourceTree = "<group>"; };
 		8722E0E7BAA3C99F3AC369CB3B9F1CE9 /* dict.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = dict.h; path = TesseractOCR/include/tesseract/dict.h; sourceTree = "<group>"; };
+		87C32EF41D9C0B8800940E0E /* CreateCodeOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateCodeOperation.swift; sourceTree = "<group>"; };
 		87D410AAB22228CC564E868F00BE65FB /* GPUImageHarrisCornerDetectionFilter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GPUImageHarrisCornerDetectionFilter.h; path = framework/Source/GPUImageHarrisCornerDetectionFilter.h; sourceTree = "<group>"; };
 		87F0CD308E0FC84C140FA5B229AB4353 /* icuerrorcode.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = icuerrorcode.h; path = TesseractOCR/include/tesseract/icuerrorcode.h; sourceTree = "<group>"; };
 		886299B17FB9BF992AAF08A6452E976F /* tessdatamanager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = tessdatamanager.h; path = TesseractOCR/include/tesseract/tessdatamanager.h; sourceTree = "<group>"; };
@@ -2572,6 +2574,7 @@
 			children = (
 				3AE9B3373C58C18C2C9ED6CD76771B1B /* DocumentInfo.swift */,
 				51453B271E28256017A4015A556D5F63 /* DocumentScanner.swift */,
+				87C32EF41D9C0B8800940E0E /* CreateCodeOperation.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -3388,6 +3391,7 @@
 				7B6FF43736EA0CA6FE38E02B87129193 /* DocumentsOCR-dummy.m in Sources */,
 				71ED526C69ECD79717518A007D26C7E8 /* NSDateExtension.swift in Sources */,
 				C49AA7F6EBB065C2264AA6C077AFB790 /* NSTextCheckingResultExtension.swift in Sources */,
+				87C32EF51D9C0B8800940E0E /* CreateCodeOperation.swift in Sources */,
 				22BBFF89120F8FFC0F867958F5B21956 /* StringExtension.swift in Sources */,
 				797F6D22777D1F45D66C4693E4090ED9 /* UIImageExtension.swift in Sources */,
 				3E742D2BD70D831E19D439CFE3EBC703 /* Utils.swift in Sources */,

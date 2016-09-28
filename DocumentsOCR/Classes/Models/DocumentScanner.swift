@@ -43,6 +43,11 @@ open class DocumentScanner: NSObject {
     /// The object that acts as the delegate of the document scanner
     open var delegate: DocumentScannerDelegate!
     
+    /// Number of success photos to recognize
+    open var maxCodes = 4
+    
+    var codes = [String]()
+    
     fileprivate let queue: OperationQueue = {
         let queue = OperationQueue()
         queue.qualityOfService = .userInitiated
@@ -121,26 +126,85 @@ extension DocumentScanner: UIImagePickerControllerDelegate, UINavigationControll
         
         let cropped = cropImage(image)
         
-        containerViewController.dismiss(animated: true, completion: nil)
+        // TODO: change and call these methods in another place?
+        //containerViewController.dismiss(animated: true, completion: nil)
         
-        delegate.documentScanner(self, willBeginScanningImage: cropped)
         
-        queue.addOperation {
-            let infoOpt = DocumentInfo(image: cropped, tesseractDelegate: self.delegate)
-            
+        // delegate.documentScanner(self, willBeginScanningImage: cropped)
+        
+        let operation = CreateCodeOperation(image: cropped, tesseractDelegate: self.delegate) {
+            code in
+
+            NSLog(code)
+            if self.codes.count == self.maxCodes {
+                self.queue.cancelAllOperations()
+                self.queue.addOperation {
+                    self.finishTakingPhotos()
+                }
+            }
+            else {
+                self.codes.append(code)
+            }
+        }
+        queue.addOperation(operation)
+    }
+    
+    fileprivate func finishTakingPhotos() {
+        
+        var resultCode = ""
+        
+        //TODO: delete this
+        for code in codes {
+            NSLog(code)
+            NSLog("\(code.characters.count)")
+//            if code.characters.count != 90 {
+//                assertionFailure()
+//            }
+        }
+        
+        let count = codes[0].characters.count
+        for index in 0 ..< count {
+            let winnerCharacter = chooseCharacterByVotesOn(index: index)
+            resultCode.append(winnerCharacter)
+        }
+        
+        if let info = DocumentInfo(recognizedText: resultCode) {
             DispatchQueue.main.async {
-                if let info = infoOpt {
-                    self.delegate.documentScanner(self, didFinishScanningWithInfo: info)
-                }
-                else {
-                    let error = NSError(domain: DOErrorDomain, code: ErrorCodes.recognize, userInfo: [
-                        NSLocalizedDescriptionKey : "Scanner has failed to recognize machine readable code from camera picture"
-                        ])
-                    self.delegate.documentScanner(self, didFailWithError: error)
-                }
+                self.containerViewController.dismiss(animated: true, completion: nil)
+                self.delegate.documentScanner(self, didFinishScanningWithInfo: info)
+            }
+        }
+        else {
+            let error = NSError(domain: DOErrorDomain, code: ErrorCodes.recognize, userInfo: [
+                NSLocalizedDescriptionKey : "Scanner has failed to recognize machine readable code from camera"
+                ])
+            self.delegate.documentScanner(self, didFailWithError: error)
+        }
+        
+        
+    }
+    
+    fileprivate func chooseCharacterByVotesOn(index: Int) -> Character {
+        let characters = codes.map({ $0[index] })
+        
+        var voting = [Character : Int]()
+        for character in characters {
+            if let count = voting[character] {
+                voting[character] = count + 1
+            }
+            else {
+                voting[character] = 1
             }
         }
         
+        let max = voting.values.max()!
+        for (character, count) in voting {
+            if count == max {
+                return character
+            }
+        }
+        
+        return characters[0]
     }
     
     fileprivate func cropImage(_ image: UIImage) -> UIImage {

@@ -49,6 +49,8 @@ public struct DocumentInfo {
     /// Check digits (0-9, also can be "<")
     public let checkDigits: [String]
     
+    let mrCode: String
+    
     fileprivate static let bundle = PodAsset.bundle(forPod: "DocumentsOCR")!
     fileprivate static let passportPattern: String! = Utils.stringFromTxtFile("passportPattern", inBundle: bundle)
     
@@ -65,6 +67,7 @@ public struct DocumentInfo {
         
         let range = NSRange(location: 0, length: text.characters.count)
         if let result = regex.firstMatch(in: text, options: [], range: range) {
+            mrCode = (text as NSString).substring(with: result.range)
             
             issuingCountryCode = result.group(atIndex: 4, fromSource: text)
             lastname = result.group(atIndex: 6, fromSource: text)
@@ -106,7 +109,29 @@ public struct DocumentInfo {
     init?(image: UIImage, tesseractDelegate: G8TesseractDelegate? = nil) {
         let path = DocumentInfo.bundle.path(forResource: "eng", ofType: "traineddata")
         
-        let tesseract = DocumentInfo.tesseract
+        let tesseract: G8Tesseract = {
+            let trainDataPath = DocumentInfo.bundle.path(forResource: "eng", ofType: "traineddata")
+            
+            let cacheURL = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first!
+            
+            let tessdataURL = cacheURL.appendingPathComponent("tesseract", isDirectory: true).appendingPathComponent("tessdata", isDirectory: true)
+            let destinationURL = tessdataURL.appendingPathComponent("eng.traineddata")
+            
+            if !FileManager.default.fileExists(atPath: destinationURL.path) {
+                DocumentInfo.createTessdataFrom(trainDataPath!, toDirectoryURL: tessdataURL, withDestinationURL: destinationURL)
+            }
+            
+            let tesseract = G8Tesseract(language: "eng", configDictionary: [:], configFileNames: [], absoluteDataPath: tessdataURL.path, engineMode: .tesseractOnly, copyFilesFromResources: false)
+            
+            var whiteList = Constants.alphabet.uppercased()
+            whiteList.append("<>1234567890")
+            tesseract?.charWhitelist = whiteList
+            
+            tesseract?.setVariableValue("FALSE", forKey: "x_ht_quality_check")
+            
+            return tesseract!
+        }()
+
         
         tesseract.delegate = tesseractDelegate!
         tesseract.image = image
