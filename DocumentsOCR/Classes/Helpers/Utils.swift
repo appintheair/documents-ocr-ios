@@ -8,10 +8,10 @@
 
 import Foundation
 
-public class Utils {
-    public static func stringFromTxtFile(fileName: String, inBundle bundle: NSBundle = NSBundle.mainBundle()) -> String? {
-        let filePath = bundle.pathForResource(fileName, ofType: "txt")
-        let contentData = NSFileManager.defaultManager().contentsAtPath(filePath!)
-        return NSString(data: contentData!, encoding: NSUTF8StringEncoding) as? String
+open class Utils {
+    open static func stringFromTxtFile(_ fileName: String, inBundle bundle: Bundle = Bundle.main) -> String? {
+        let filePath = bundle.path(forResource: fileName, ofType: "txt")
+        let contentData = FileManager.default.contents(atPath: filePath!)
+        return NSString(data: contentData!, encoding: String.Encoding.utf8.rawValue) as? String
     }
 }

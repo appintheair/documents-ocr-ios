@@ -9,22 +9,22 @@
 import UIKit
 
 enum TextFieldType {
-    case Name, Date, Text, Sex, Country, None
+    case name, date, text, sex, country, none
 }
 
 class PassportTextField: UITextField {
     var editType: TextFieldType {
         set {
-            editTypeValue = String(newValue)
+            editTypeValue = String(describing: newValue)
         }
         get {
             switch editTypeValue {
-            case "Name": return .Name
-            case "Date": return .Date
-            case "Text": return .Text
-            case "Sex": return .Sex
-            case "Country": return .Country
-            default: return .None
+            case "Name": return .name
+            case "Date": return .date
+            case "Text": return .text
+            case "Sex": return .sex
+            case "Country": return .country
+            default: return .none
             }
         }
     }

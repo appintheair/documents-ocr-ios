@@ -12,7 +12,7 @@ import PodAsset
 
 ///gender
 public enum Gender {
-    case Male, Female, Unknown
+    case male, female, unknown
 }
 
 /// Struct-container for recognition fields of passport machine readable code
@@ -35,13 +35,13 @@ public struct DocumentInfo {
     public let nationalityCode: String
     
     /// Date of birth
-    public let dateOfBirth: NSDate?
+    public let dateOfBirth: Date?
     
     /// Gender
     public let gender: Gender
     
     /// Expiration date of passport
-    public let expirationDate: NSDate?
+    public let expirationDate: Date?
     
     /// Personal number (may be used by the issuing country as it desires)
     public let personalNumber: String
@@ -49,8 +49,8 @@ public struct DocumentInfo {
     /// Check digits (0-9, also can be "<")
     public let checkDigits: [String]
     
-    private static let bundle = PodAsset.bundleForPod("DocumentsOCR")
-    private static let passportPattern: String! = Utils.stringFromTxtFile("passportPattern", inBundle: bundle)
+    fileprivate static let bundle = PodAsset.bundle(forPod: "DocumentsOCR")!
+    fileprivate static let passportPattern: String! = Utils.stringFromTxtFile("passportPattern", inBundle: bundle)
     
     init?(recognizedText text: String) {
         
@@ -64,29 +64,29 @@ public struct DocumentInfo {
         }
         
         let range = NSRange(location: 0, length: text.characters.count)
-        if let result = regex.firstMatchInString(text, options: [], range: range) {
+        if let result = regex.firstMatch(in: text, options: [], range: range) {
             
             issuingCountryCode = result.group(atIndex: 4, fromSource: text)
             lastname = result.group(atIndex: 6, fromSource: text)
-            name = result.group(atIndex: 7, fromSource: text).stringByReplacingOccurrencesOfString("<", withString: " ")
+            name = result.group(atIndex: 7, fromSource: text).replacingOccurrences(of: "<", with: " ")
             passportNumber = result.group(atIndex: 9, fromSource: text)
             nationalityCode = result.group(atIndex: 11, fromSource: text)
             
             let dayOfBirthCode = result.group(atIndex: 12, fromSource: text)
-            dateOfBirth = NSDate.dateFromPassportDateCode("19" + dayOfBirthCode)
+            dateOfBirth = Date.dateFromPassportDateCode("19" + dayOfBirthCode)
             
             let genderLetter = result.group(atIndex: 17, fromSource: text)
             switch genderLetter {
             case "F":
-                gender = .Female
+                gender = .female
             case "M":
-                gender = .Male
+                gender = .male
             default:
-                gender = .Unknown
+                gender = .unknown
             }
             
             let expiralDateCode = result.group(atIndex: 18, fromSource: text)
-            expirationDate = NSDate.dateFromPassportDateCode("20" + expiralDateCode)
+            expirationDate = Date.dateFromPassportDateCode("20" + expiralDateCode)
             
             personalNumber = result.group(atIndex: 23, fromSource: text)
             
@@ -104,7 +104,7 @@ public struct DocumentInfo {
     }
     
     init?(image: UIImage, tesseractDelegate: G8TesseractDelegate? = nil) {
-        let path = DocumentInfo.bundle.pathForResource("eng", ofType: "traineddata")
+        let path = DocumentInfo.bundle.path(forResource: "eng", ofType: "traineddata")
         
         let tesseract = DocumentInfo.tesseract
         
@@ -116,7 +116,7 @@ public struct DocumentInfo {
         if let recognizedText = tesseract.recognizedText {
             NSLog("Recognized: \(recognizedText)")
             
-            let mrCode = recognizedText.stringByReplacingOccurrencesOfString(" ", withString: "")
+            let mrCode = recognizedText.replacingOccurrences(of: " ", with: "")
             
             self.init(recognizedText: mrCode)
         }
@@ -126,36 +126,36 @@ public struct DocumentInfo {
     }
     
     
-    private static var tesseract: G8Tesseract = {
-        let trainDataPath = DocumentInfo.bundle.pathForResource("eng", ofType: "traineddata")
+    fileprivate static var tesseract: G8Tesseract = {
+        let trainDataPath = DocumentInfo.bundle.path(forResource: "eng", ofType: "traineddata")
         
-        let cacheURL = NSFileManager.defaultManager().URLsForDirectory(.CachesDirectory, inDomains: .UserDomainMask).first!
+        let cacheURL = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first!
         
-        let tessdataURL = cacheURL.URLByAppendingPathComponent("tesseract", isDirectory: true)!.URLByAppendingPathComponent("tessdata", isDirectory: true)!
-        let destinationURL = tessdataURL.URLByAppendingPathComponent("eng.traineddata")!
+        let tessdataURL = cacheURL.appendingPathComponent("tesseract", isDirectory: true).appendingPathComponent("tessdata", isDirectory: true)
+        let destinationURL = tessdataURL.appendingPathComponent("eng.traineddata")
         
-        if !NSFileManager.defaultManager().fileExistsAtPath(destinationURL.path!) {
+        if !FileManager.default.fileExists(atPath: destinationURL.path) {
             DocumentInfo.createTessdataFrom(trainDataPath!, toDirectoryURL: tessdataURL, withDestinationURL: destinationURL)
         }
         
-        let tesseract = G8Tesseract(language: "eng", configDictionary: [:], configFileNames: [], absoluteDataPath: tessdataURL.path!, engineMode: .TesseractOnly, copyFilesFromResources: false)
+        let tesseract = G8Tesseract(language: "eng", configDictionary: [:], configFileNames: [], absoluteDataPath: tessdataURL.path, engineMode: .tesseractOnly, copyFilesFromResources: false)
         
-        var whiteList = Constants.alphabet.uppercaseString
-        whiteList.appendContentsOf("<>1234567890")
-        tesseract.charWhitelist = whiteList
+        var whiteList = Constants.alphabet.uppercased()
+        whiteList.append("<>1234567890")
+        tesseract?.charWhitelist = whiteList
         
-        tesseract.setVariableValue("FALSE", forKey: "x_ht_quality_check")
+        tesseract?.setVariableValue("FALSE", forKey: "x_ht_quality_check")
         
-        return tesseract
+        return tesseract!
     }()
     
-    private static func createTessdataFrom(filePath: String, toDirectoryURL tessdataURL: NSURL, withDestinationURL destinationURL: NSURL) {
+    fileprivate static func createTessdataFrom(_ filePath: String, toDirectoryURL tessdataURL: URL, withDestinationURL destinationURL: URL) {
         do {
-            let fileManager = NSFileManager.defaultManager()
-            try fileManager.createDirectoryAtPath(tessdataURL.path!,
+            let fileManager = FileManager.default
+            try fileManager.createDirectory(atPath: tessdataURL.path,
                                                   withIntermediateDirectories: true, attributes: nil)
             
-            try fileManager.copyItemAtPath(filePath, toPath: destinationURL.path!)
+            try fileManager.copyItem(atPath: filePath, toPath: destinationURL.path)
         }
         catch let error as NSError {
             assertionFailure("There is no tessdata directory in cache (TesseractOCR traineddata). \(error.localizedDescription)")

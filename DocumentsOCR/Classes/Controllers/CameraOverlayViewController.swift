@@ -9,7 +9,7 @@
 import UIKit
 
 class CameraOverlayViewController: UIViewController {    
-    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-        return .Portrait
+    override var supportedInterfaceOrientations : UIInterfaceOrientationMask {
+        return .portrait
     }
 }

@@ -11,10 +11,10 @@ import UIKit
 
 extension UIViewController {
     func showErrorAlert(withMessage message: String) {
-        let alertVC = UIAlertController(title: "Ошибка", message: message, preferredStyle: .Alert)
-        let okAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
+        let alertVC = UIAlertController(title: "Ошибка", message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
         
         alertVC.addAction(okAction)
-        presentViewController(alertVC, animated: true, completion: nil)
+        present(alertVC, animated: true, completion: nil)
     }
 }

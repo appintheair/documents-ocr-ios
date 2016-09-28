@@ -1,8 +1,8 @@
 {
   "name": "DocumentsOCR",
-  "version": "0.5.2",
+  "version": "0.6.1",
   "summary": "A Swift framework for machine readable documents recognition",
-  "homepage": "https://github.com/appintheair/passport-ocr-ios",
+  "homepage": "https://github.com/appintheair/documents-ocr-ios",
   "license": {
     "type": "MIT",
     "file": "LICENSE"
@@ -11,8 +11,8 @@
     "Michael": "mmbabaev@gmail.com"
   },
   "source": {
-    "git": "https://github.com/appintheair/passport-ocr-ios.git",
-    "tag": "0.5.2"
+    "git": "https://github.com/appintheair/documents-ocr-ios",
+    "tag": "0.6.1"
   },
   "platforms": {
     "ios": "8.0"

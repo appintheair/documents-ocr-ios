@@ -8,17 +8,17 @@
 
 import UIKit
 
-public class CameraOverlayView: UIView {
+open class CameraOverlayView: UIView {
     
     @IBOutlet weak var codeBorder: UIView!
     
     var scanner: DocumentScanner!
     
-    @IBAction func cancelButtonClicked(sender: UIButton) {
-        scanner.containerViewController.dismissViewControllerAnimated(true, completion: nil)
+    @IBAction func cancelButtonClicked(_ sender: UIButton) {
+        scanner.containerViewController.dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func scanButtonClicked(sender: UIButton) {
+    @IBAction func scanButtonClicked(_ sender: UIButton) {
         scanner.imagePicker.takePicture()
     }
     
@@ -28,6 +28,6 @@ public class CameraOverlayView: UIView {
     
     required public init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)!
-        self.opaque = false
+        self.isOpaque = false
     }
 }

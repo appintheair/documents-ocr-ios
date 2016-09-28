@@ -8,24 +8,25 @@
 
 import Foundation
 
-let simpleFormatter: NSDateFormatter = {
-    let formatter = NSDateFormatter()
+let simpleFormatter: DateFormatter = {
+    let formatter = DateFormatter()
     formatter.dateFormat = "yyyy-MM-dd"
-    formatter.timeZone = NSTimeZone(forSecondsFromGMT: 0)
+    formatter.timeZone = TimeZone(secondsFromGMT: 0)
     
     return formatter
 }()
 
-extension NSDate {
-    static func dateFromPassportDateCode(code: String) -> NSDate? {
-        let year = code[0...3]
-        let month = code[4...5]
-        let day = code[6...7]
-
-        return simpleFormatter.dateFromString("\(year)-\(month)-\(day)")
+extension Date {
+    static func dateFromPassportDateCode(_ code: String) -> Date? {
+        
+        let year = code.substring(from: 0, to: 3)
+        let month = code.substring(from: 4, to: 5)
+        let day = code.substring(from: 6, to: 7)
+        
+        return simpleFormatter.date(from: "\(year)-\(month)-\(day)")
     }
     
     var stringDate: String {
-        return simpleFormatter.stringFromDate(self)
+        return simpleFormatter.string(from: self)
     }
 }

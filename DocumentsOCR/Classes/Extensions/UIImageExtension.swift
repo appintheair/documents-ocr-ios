@@ -11,21 +11,21 @@ import UIKit
 import GPUImage
 
 extension UIImage {
-    func croppedImageWithSize(rect: CGRect) -> UIImage {
+    func croppedImageWithSize(_ rect: CGRect) -> UIImage {
         
-        let imageRef: CGImageRef! = CGImageCreateWithImageInRect(self.CGImage!, rect)
+        let imageRef: CGImage! = self.cgImage!.cropping(to: rect)
         
-        let croppedImage: UIImage = UIImage(CGImage: imageRef, scale: self.scale, orientation: self.imageOrientation)
+        let croppedImage: UIImage = UIImage(cgImage: imageRef, scale: self.scale, orientation: self.imageOrientation)
         
         let selectedFilter = GPUImageTransformFilter()
-        selectedFilter.setInputRotation(kGPUImageNoRotation, atIndex: 0)
-        let image: UIImage = selectedFilter.imageByFilteringImage(croppedImage)
+        selectedFilter.setInputRotation(kGPUImageNoRotation, at: 0)
+        let image: UIImage = selectedFilter.image(byFilteringImage: croppedImage)
         
         return image
     }
     
-    func save(path: String) {
+    func save(_ path: String) {
         let png = UIImagePNGRepresentation(self)
-        png?.writeToFile(path, atomically: true)
+        try? png?.write(to: URL(fileURLWithPath: path), options: [.atomic])
     }
 }

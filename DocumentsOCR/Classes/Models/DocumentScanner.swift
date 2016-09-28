@@ -17,35 +17,35 @@ public protocol DocumentScannerDelegate: G8TesseractDelegate {
     ///
     /// - parameter scanner: The document scanner object informing the delegate of this event
     /// - parameter image:   The cropped image from camera shoot
-    func documentScanner(scanner: DocumentScanner, willBeginScanningImage image: UIImage)
+    func documentScanner(_ scanner: DocumentScanner, willBeginScanningImage image: UIImage)
     
     /// Tells the delegate that scanner finished to recognize machine readable code from camera image and translate it into DocumentInfo struct
     ///
     /// - parameter scanner: The document scanner object informing the delegate of this event
     /// - parameter info:    The document info object containing information of document from camera shoot
-    func documentScanner(scanner: DocumentScanner, didFinishScanningWithInfo info: DocumentInfo)
+    func documentScanner(_ scanner: DocumentScanner, didFinishScanningWithInfo info: DocumentInfo)
     
     
     /// Tells the delegate that some error happened
     ///
     /// - parameter scanner: The document scanner object informing the delegate of this event
     /// - parameter error:   The error object containing reason of failure
-    func documentScanner(scanner: DocumentScanner, didFailWithError error: NSError)
+    func documentScanner(_ scanner: DocumentScanner, didFailWithError error: NSError)
 }
 
-public class DocumentScanner: NSObject {
+open class DocumentScanner: NSObject {
     
     var imagePicker = UIImagePickerController()
     
     /// View controller, which will present camera image picker for document machine readable code
-    public var containerViewController: UIViewController!
+    open var containerViewController: UIViewController!
     
     /// The object that acts as the delegate of the document scanner
-    public var delegate: DocumentScannerDelegate!
+    open var delegate: DocumentScannerDelegate!
     
-    private let queue: NSOperationQueue = {
-        let queue = NSOperationQueue()
-        queue.qualityOfService = .UserInitiated
+    fileprivate let queue: OperationQueue = {
+        let queue = OperationQueue()
+        queue.qualityOfService = .userInitiated
         queue.name = "ScannerOperationQueue"
         return queue
     }()
@@ -66,12 +66,12 @@ public class DocumentScanner: NSObject {
     
     /// Present view controller with camera and border for document machine readable code
     
-    public func presentCameraViewController() {
-        if UIImagePickerController.availableCaptureModesForCameraDevice(.Rear) != nil {
+    open func presentCameraViewController() {
+        if UIImagePickerController.availableCaptureModes(for: .rear) != nil {
             imagePicker = UIImagePickerController()
             imagePicker.allowsEditing = false
-            imagePicker.sourceType = .Camera
-            imagePicker.cameraCaptureMode = .Photo
+            imagePicker.sourceType = .camera
+            imagePicker.cameraCaptureMode = .photo
             imagePicker.showsCameraControls = false
             
             imagePicker.delegate = self
@@ -82,11 +82,11 @@ public class DocumentScanner: NSObject {
             let frame = CGRect(x: 0, y: 0, width: width, height: height)
             overlayView.frame = frame
             
-            imagePicker.modalPresentationStyle = .FullScreen
-            containerViewController.presentViewController(imagePicker, animated: true, completion: {
+            imagePicker.modalPresentationStyle = .fullScreen
+            containerViewController.present(imagePicker, animated: true, completion: {
                 
                 overlayView.codeBorder.layer.borderWidth = 5.0
-                overlayView.codeBorder.layer.borderColor = UIColor.redColor().CGColor
+                overlayView.codeBorder.layer.borderColor = UIColor.red.cgColor
                 
                 overlayView.scanner = self
                 
@@ -102,8 +102,8 @@ public class DocumentScanner: NSObject {
     }
     
     
-    private var cameraOverlayView: CameraOverlayView {
-        let bundle = PodAsset.bundleForPod("DocumentsOCR")
+    fileprivate var cameraOverlayView: CameraOverlayView {
+        let bundle = PodAsset.bundle(forPod: "DocumentsOCR")
         let cameraVC = CameraOverlayViewController(nibName: NibNames.cameraOverlayViewController, bundle: bundle!)
         let overlayView = cameraVC.view as! CameraOverlayView
         return overlayView
@@ -112,7 +112,7 @@ public class DocumentScanner: NSObject {
 
 extension DocumentScanner: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    public func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+    public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         
         let editedImage = info[UIImagePickerControllerEditedImage] as? UIImage
         let originalImage = info[UIImagePickerControllerOriginalImage] as! UIImage
@@ -121,14 +121,14 @@ extension DocumentScanner: UIImagePickerControllerDelegate, UINavigationControll
         
         let cropped = cropImage(image)
         
-        containerViewController.dismissViewControllerAnimated(true, completion: nil)
+        containerViewController.dismiss(animated: true, completion: nil)
         
         delegate.documentScanner(self, willBeginScanningImage: cropped)
         
-        queue.addOperationWithBlock {
+        queue.addOperation {
             let infoOpt = DocumentInfo(image: cropped, tesseractDelegate: self.delegate)
             
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 if let info = infoOpt {
                     self.delegate.documentScanner(self, didFinishScanningWithInfo: info)
                 }
@@ -143,7 +143,7 @@ extension DocumentScanner: UIImagePickerControllerDelegate, UINavigationControll
         
     }
     
-    private func cropImage(image: UIImage) -> UIImage {
+    fileprivate func cropImage(_ image: UIImage) -> UIImage {
         
         let viewControllerSize = containerViewController.view.frame.size
         let vcWidth = viewControllerSize.width
@@ -157,7 +157,7 @@ extension DocumentScanner: UIImagePickerControllerDelegate, UINavigationControll
         
         let cameraImageY = (cameraImageHeight - borderHeight) / 2
         
-        let rect = CGRectMake(cameraImageY, 0, borderHeight, image.size.width)
+        let rect = CGRect(x: cameraImageY, y: 0, width: borderHeight, height: image.size.width)
         
         return image.croppedImageWithSize(rect)
     }

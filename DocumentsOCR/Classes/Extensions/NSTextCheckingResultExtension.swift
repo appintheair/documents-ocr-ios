@@ -10,8 +10,8 @@ import Foundation
 
 extension NSTextCheckingResult {
     func group(atIndex index: Int, fromSource source: String) -> String {
-        let range = self.rangeAtIndex(index)
-        return (source as NSString).substringWithRange(range).stringByTrimmingCharactersInSet(NSCharacterSet(charactersInString: "<"))
+        let range = self.rangeAt(index)
+        return (source as NSString).substring(with: range).trimmingCharacters(in: CharacterSet(charactersIn: "<"))
     }
 }
 

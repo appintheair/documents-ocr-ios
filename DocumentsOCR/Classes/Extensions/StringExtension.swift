@@ -3,16 +3,13 @@ import Foundation
 extension String {
     
     subscript (i: Int) -> Character {
-        return self[self.startIndex.advancedBy(i)]
+        let index = self.index(self.startIndex, offsetBy: i)
+        return self.characters[index]
     }
     
-    subscript (i: Int) -> String {
-        return String(self[i] as Character)
-    }
-    
-    subscript (r: Range<Int>) -> String {
-        let start = startIndex.advancedBy(r.startIndex)
-        let end = start.advancedBy(r.endIndex - r.startIndex)
-        return self[Range(start ..< end)]
+    func substring(from: Int, to: Int) -> String {
+        let fromIndex = self.index(self.startIndex, offsetBy: from)
+        let toIndex = self.index(self.startIndex, offsetBy: to + 1)
+        return self.substring(with: fromIndex ..< toIndex)
     }
 }
