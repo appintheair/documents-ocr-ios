@@ -60,13 +60,11 @@ public struct DocumentInfo {
             regex = try NSRegularExpression(pattern: DocumentInfo.passportPattern, options: [])
         }
         catch {
-            NSLog("error pattern")
             return nil
         }
         
         let range = NSRange(location: 0, length: text.characters.count)
         if let result = regex.firstMatchInString(text, options: [], range: range) {
-            NSLog("\(result.components)")
             
             issuingCountryCode = result.group(atIndex: 4, fromSource: text)
             lastname = result.group(atIndex: 6, fromSource: text)
@@ -84,7 +82,6 @@ public struct DocumentInfo {
             case "M":
                 gender = .Male
             default:
-                NSLog("Error: unknown sex \(genderLetter)")
                 gender = .Unknown
             }
             
@@ -102,32 +99,14 @@ public struct DocumentInfo {
             ]
         }
         else {
-            NSLog("Error: no match result")
             return nil
         }
     }
     
     init?(image: UIImage, tesseractDelegate: G8TesseractDelegate? = nil) {
         let path = DocumentInfo.bundle.pathForResource("eng", ofType: "traineddata")
-        NSLog("Train data path: \(path)")
         
         let tesseract = DocumentInfo.tesseract
-        
-        let cacheURL = NSFileManager.defaultManager().URLsForDirectory(.CachesDirectory, inDomains: .UserDomainMask).first!
-        let tessdataPath = cacheURL.absoluteString! + "tessdata"
-        do {
-            let fileManager = NSFileManager.defaultManager()
-            try fileManager.createDirectoryAtPath(tessdataPath, withIntermediateDirectories: true, attributes: nil)
-            try fileManager.copyItemAtPath(path!, toPath: tessdataPath)
-            NSLog("Tessdata in cache: \(fileManager.fileExistsAtPath(tessdataPath + "eng.traineddata"))")
-            NSLog("end")
-        }
-        catch {
-            NSLog("Create folder error!")
-        }
-        
-        NSLog("Tess absolute path : \(tesseract.absoluteDataPath)")
-        NSLog("folder: \(DocumentInfo.bundle.resourcePath)")
         
         tesseract.delegate = tesseractDelegate!
         tesseract.image = image
@@ -135,10 +114,10 @@ public struct DocumentInfo {
         tesseract.recognize()
         
         if let recognizedText = tesseract.recognizedText {
-            NSLog("RECOGNIZED: \(recognizedText)")
+            NSLog("Recognized: \(recognizedText)")
             
             let mrCode = recognizedText.stringByReplacingOccurrencesOfString(" ", withString: "")
-        
+            
             self.init(recognizedText: mrCode)
         }
         else {
@@ -146,11 +125,12 @@ public struct DocumentInfo {
         }
     }
     
+    
     private static var tesseract: G8Tesseract = {
         let trainDataPath = DocumentInfo.bundle.pathForResource("eng", ofType: "traineddata")
         
         let cacheURL = NSFileManager.defaultManager().URLsForDirectory(.CachesDirectory, inDomains: .UserDomainMask).first!
-
+        
         let tessdataURL = cacheURL.URLByAppendingPathComponent("tesseract", isDirectory: true)!.URLByAppendingPathComponent("tessdata", isDirectory: true)!
         let destinationURL = tessdataURL.URLByAppendingPathComponent("eng.traineddata")!
         
@@ -165,7 +145,7 @@ public struct DocumentInfo {
         tesseract.charWhitelist = whiteList
         
         tesseract.setVariableValue("FALSE", forKey: "x_ht_quality_check")
-
+        
         return tesseract
     }()
     
@@ -176,12 +156,9 @@ public struct DocumentInfo {
                                                   withIntermediateDirectories: true, attributes: nil)
             
             try fileManager.copyItemAtPath(filePath, toPath: destinationURL.path!)
-            NSLog("Tessdata in cache: \(fileManager.fileExistsAtPath(destinationURL.path!))")
-            NSLog("end")
         }
         catch let error as NSError {
-            NSLog("Create folder error! \(error.localizedDescription)")
-            assertionFailure()
+            assertionFailure("There is no tessdata directory in cache (TesseractOCR traineddata). \(error.localizedDescription)")
         }
     }
 }

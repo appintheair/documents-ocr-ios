@@ -24,7 +24,7 @@ public protocol DocumentScannerDelegate: G8TesseractDelegate {
     /// - parameter scanner: The document scanner object informing the delegate of this event
     /// - parameter info:    The document info object containing information of document from camera shoot
     func documentScanner(scanner: DocumentScanner, didFinishScanningWithInfo info: DocumentInfo)
-
+    
     
     /// Tells the delegate that some error happened
     ///
@@ -34,7 +34,7 @@ public protocol DocumentScannerDelegate: G8TesseractDelegate {
 }
 
 public class DocumentScanner: NSObject {
-
+    
     var imagePicker = UIImagePickerController()
     
     /// View controller, which will present camera image picker for document machine readable code
@@ -58,7 +58,7 @@ public class DocumentScanner: NSObject {
      
      - Returns: The document scanner instance
      */
-
+    
     public init(containerVC: UIViewController, withDelegate delegate: DocumentScannerDelegate) {
         self.delegate = delegate
         self.containerViewController = containerVC
@@ -94,10 +94,10 @@ public class DocumentScanner: NSObject {
             })
         }
         else {
-            let error = NSError(domain: DOErrorDomain, code: 1, userInfo: [
+            let error = NSError(domain: DOErrorDomain, code: ErrorCodes.noCamera, userInfo: [
                 NSLocalizedDescriptionKey : "Scanner unnable to find camera on this device"
                 ])
-            self.delegate.documentScanner(self, didFailWithError: error)
+            delegate.documentScanner(self, didFailWithError: error)
         }
     }
     
@@ -133,20 +133,17 @@ extension DocumentScanner: UIImagePickerControllerDelegate, UINavigationControll
                     self.delegate.documentScanner(self, didFinishScanningWithInfo: info)
                 }
                 else {
-                    let error = NSError(domain: DOErrorDomain, code: 0, userInfo: [
+                    let error = NSError(domain: DOErrorDomain, code: ErrorCodes.recognize, userInfo: [
                         NSLocalizedDescriptionKey : "Scanner has failed to recognize machine readable code from camera picture"
                         ])
                     self.delegate.documentScanner(self, didFailWithError: error)
                 }
             }
         }
-
+        
     }
     
     private func cropImage(image: UIImage) -> UIImage {
-        NSLog("image size: \(image.size)")
-        NSLog("vc size: \(containerViewController.view.frame.size)")
-        NSLog("border size: \(cameraOverlayView.codeBorder.frame.size)")
         
         let viewControllerSize = containerViewController.view.frame.size
         let vcWidth = viewControllerSize.width
@@ -161,7 +158,7 @@ extension DocumentScanner: UIImagePickerControllerDelegate, UINavigationControll
         let cameraImageY = (cameraImageHeight - borderHeight) / 2
         
         let rect = CGRectMake(cameraImageY, 0, borderHeight, image.size.width)
-
+        
         return image.croppedImageWithSize(rect)
     }
 }

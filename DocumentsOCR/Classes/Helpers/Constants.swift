@@ -10,6 +10,11 @@ import Foundation
 
 public let DOErrorDomain = "DocumentsOCRErrorDomain"
 
+struct ErrorCodes {
+    static let recognize = 0
+    static let noCamera = 1
+}
+
 struct NibNames {
     static let cameraOverlayViewController = "CameraOverlayViewController"
 }
