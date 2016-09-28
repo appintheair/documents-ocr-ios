@@ -46,6 +46,7 @@ open class DocumentScanner: NSObject {
     /// Number of success photos to recognize
     open var maxCodes = 4
     
+    var timer: Timer!
     var codes = [String]()
     
     fileprivate let queue: OperationQueue = {
@@ -93,7 +94,7 @@ open class DocumentScanner: NSObject {
                 overlayView.codeBorder.layer.borderWidth = 5.0
                 overlayView.codeBorder.layer.borderColor = UIColor.red.cgColor
                 
-                overlayView.scanner = self
+                overlayView.delegate = self
                 
                 self.imagePicker.cameraOverlayView = overlayView
             })
@@ -112,6 +113,24 @@ open class DocumentScanner: NSObject {
         let cameraVC = CameraOverlayViewController(nibName: NibNames.cameraOverlayViewController, bundle: bundle!)
         let overlayView = cameraVC.view as! CameraOverlayView
         return overlayView
+    }
+}
+
+extension DocumentScanner: CameraViewDelegate {
+    func stopTakingPictures() {
+        timer.invalidate()
+        containerViewController.dismiss(animated: true, completion: nil)
+        queue.cancelAllOperations()
+    }
+    
+    func startTakingPictures() {
+        codes = [String]()
+        self.timer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(self.timerTicked(sender:)), userInfo: nil, repeats: true)
+    }
+    
+    func timerTicked(sender: Timer) {
+        NSLog("Tick")
+        imagePicker.takePicture()
     }
 }
 
@@ -170,6 +189,7 @@ extension DocumentScanner: UIImagePickerControllerDelegate, UINavigationControll
         
         if let info = DocumentInfo(recognizedText: resultCode) {
             DispatchQueue.main.async {
+                self.stopTakingPictures()
                 self.containerViewController.dismiss(animated: true, completion: nil)
                 self.delegate.documentScanner(self, didFinishScanningWithInfo: info)
             }
