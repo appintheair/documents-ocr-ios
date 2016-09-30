@@ -83,6 +83,7 @@ Optionally you can set how many photos to take and time interval between them:
 ```swift
     scanner.photosCount = 10
     scanner.takePhotoInterval = 1.0
+```
 
 ### Present camera controller
 
