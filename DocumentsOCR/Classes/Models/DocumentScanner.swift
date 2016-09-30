@@ -12,7 +12,18 @@ import PodAsset
 
 /// The delegate of a DocumentScaner object must adopt the DocumentScannerDelegate protocol. Methods of protocol allow use result of document machine readable code recognition, handle errors if something went wrong. In addition, this protocol inherit G8TesseractDelegate protocol, so you can handle progress of image recognition (optional).
 public protocol DocumentScannerDelegate: G8TesseractDelegate {
+    /// Tells the delegate that user press take photo button, contains reference to cropped image from camera shoot
+    ///
+    /// - parameter scanner: The document scanner object informing the delegate of this event
+    /// - parameter images:  The cropped images from camera shoots
+    func documentScanner(_ scanner: DocumentScanner, willBeginScanningImages: [UIImage])
     
+    /// Tells the delegate that progress of photos recognition changed
+    ///
+    /// - parameter scanner:             The document scanner object informing the delegate of this event
+    /// - parameter progressRecognition: progress value from 0.0 to 1.0
+    func documentScanner(_ scanner: DocumentScanner, recognitionProgress: Double)
+
     /// Tells the delegate that scanner finished to recognize machine readable code from camera image and translate it into DocumentInfo struct
     ///
     /// - parameter scanner: The document scanner object informing the delegate of this event
@@ -27,22 +38,6 @@ public protocol DocumentScannerDelegate: G8TesseractDelegate {
     func documentScanner(_ scanner: DocumentScanner, didFailWithError error: NSError)
 }
 
-// optional functions:
-extension DocumentScannerDelegate {
-    /// Tells the delegate that user press take photo button, contains reference to cropped image from camera shoot
-    ///
-    /// - parameter scanner: The document scanner object informing the delegate of this event
-    /// - parameter images:  The cropped images from camera shoots
-    func documentScanner(_ scanner: DocumentScanner, willBeginScanningImages: [UIImage]) {}
-    
-    
-    /// Tells the delegate that progress of photos recognition changed
-    ///
-    /// - parameter scanner:             The document scanner object informing the delegate of this event
-    /// - parameter progressRecognition: progress value from 0.0 to 1.0
-    func documentScanner(_ scanner: DocumentScanner, recognitionProgress: Double) {}
-}
-
 open class DocumentScanner: NSObject {
     
     var imagePicker = UIImagePickerController()
@@ -54,13 +49,12 @@ open class DocumentScanner: NSObject {
     open var delegate: DocumentScannerDelegate!
     
     /// Number of photos to recognize
-    open var photosCount: UInt8 = 1
+    open var photosCount: UInt8 = 5
     
     /// Time interval between taking photos
     open var takePhotoInterval = 0.2
  
     var timer: Timer!
-    var timerTicks = 0
     var codes = [String]()
     var images = [UIImage]()
     
@@ -149,12 +143,6 @@ extension DocumentScanner: CameraViewDelegate {
     }
     
     func timerTick(sender: Timer) {
-        NSLog("tick")
-        
-        timerTicks += 1
-        if timerTicks == Int(photosCount) {
-            timer.invalidate()
-        }
         imagePicker.takePicture()
     }
 }

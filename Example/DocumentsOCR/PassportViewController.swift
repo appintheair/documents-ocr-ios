@@ -90,12 +90,12 @@ class PassportViewController: UITableViewController {
 
 extension PassportViewController: DocumentScannerDelegate {
     
-    func documentScanner(_ scanner: DocumentScanner, willBeginScanningImage image: UIImage) {
-        self.cameraImageView.image = image
+    func documentScanner(_ scanner: DocumentScanner, willBeginScanningImages images: [UIImage]) {
+        NSLog("will begin scanning")
     }
     
-    func documentScanner(_ scanner: DocumentScanner, progressRecognition: Double) {
-        self.title = String(progressRecognition)
+    func documentScanner(_ scanner: DocumentScanner, recognitionProgress: Double) {
+        self.title = String(recognitionProgress)
     }
     
     func documentScanner(_ scanner: DocumentScanner, didFinishScanningWithInfo info: DocumentInfo) {
