@@ -16,6 +16,7 @@ protocol CameraViewDelegate {
 open class CameraOverlayView: UIView {
     
     @IBOutlet weak var codeBorder: UIView!
+    @IBOutlet weak var takePhotoButton: UIButton!
     
     var delegate: CameraViewDelegate!
     
@@ -24,6 +25,7 @@ open class CameraOverlayView: UIView {
     }
     
     @IBAction func scanButtonClicked(_ sender: UIButton) {
+        takePhotoButton.isHidden = true
         delegate.startTakingPictures()
     }
     

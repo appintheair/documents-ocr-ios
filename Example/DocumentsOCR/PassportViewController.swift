@@ -94,6 +94,10 @@ extension PassportViewController: DocumentScannerDelegate {
         self.cameraImageView.image = image
     }
     
+    func documentScanner(_ scanner: DocumentScanner, progressRecognition: Double) {
+        self.title = String(progressRecognition)
+    }
+    
     func documentScanner(_ scanner: DocumentScanner, didFinishScanningWithInfo info: DocumentInfo) {
         NSLog("Info: \(info)")
         

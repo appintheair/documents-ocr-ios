@@ -45,12 +45,13 @@
             </userDefinedRuntimeAttributes>
             <connections>
                 <outlet property="codeBorder" destination="aq8-eL-xhw" id="HIf-dd-a4H"/>
+                <outlet property="takePhotoButton" destination="cm0-0M-N08" id="H5X-vT-mNc"/>
             </connections>
             <point key="canvasLocation" x="421.5" y="462.5"/>
         </view>
     </objects>
     <resources>
-        <image name="cancel.png" width="52" height="52"/>
+        <image name="cancel.png" width="104" height="104"/>
         <image name="circle.png" width="256" height="256"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

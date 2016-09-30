@@ -19,6 +19,8 @@ public protocol DocumentScannerDelegate: G8TesseractDelegate {
     /// - parameter image:   The cropped image from camera shoot
     func documentScanner(_ scanner: DocumentScanner, willBeginScanningImage image: UIImage)
     
+    func documentScanner(_ scanner: DocumentScanner, progressRecognition: Double)
+    
     /// Tells the delegate that scanner finished to recognize machine readable code from camera image and translate it into DocumentInfo struct
     ///
     /// - parameter scanner: The document scanner object informing the delegate of this event
@@ -43,11 +45,15 @@ open class DocumentScanner: NSObject {
     /// The object that acts as the delegate of the document scanner
     open var delegate: DocumentScannerDelegate!
     
-    /// Number of success photos to recognize
-    open var maxCodes = 4
+    /// Number of photos to recognize
+    open var photosCount: UInt8 = 5
+    
+    /// Time interval between taking photos
+    open var takePhotoInterval = 0.2
     
     var timer: Timer!
     var codes = [String]()
+    var images = [UIImage]()
     
     fileprivate let queue: OperationQueue = {
         let queue = OperationQueue()
@@ -112,24 +118,31 @@ open class DocumentScanner: NSObject {
         let bundle = PodAsset.bundle(forPod: "DocumentsOCR")
         let cameraVC = CameraOverlayViewController(nibName: NibNames.cameraOverlayViewController, bundle: bundle!)
         let overlayView = cameraVC.view as! CameraOverlayView
+        
         return overlayView
     }
 }
 
 extension DocumentScanner: CameraViewDelegate {
+    
     func stopTakingPictures() {
         timer.invalidate()
-        containerViewController.dismiss(animated: true, completion: nil)
         queue.cancelAllOperations()
+        DispatchQueue.main.async {
+            self.containerViewController.dismiss(animated: true, completion: nil)
+        }
     }
     
     func startTakingPictures() {
         codes = [String]()
-        self.timer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(self.timerTicked(sender:)), userInfo: nil, repeats: true)
+        images = [UIImage]()
+        
+        timer = Timer.scheduledTimer(timeInterval: takePhotoInterval, target: self, selector: #selector(self.timerTick(sender:)), userInfo: nil, repeats: true)
     }
     
-    func timerTicked(sender: Timer) {
-        NSLog("Tick")
+    func timerTick(sender: Timer) {
+        NSLog("tick")
+        
         imagePicker.takePicture()
     }
 }
@@ -145,41 +158,35 @@ extension DocumentScanner: UIImagePickerControllerDelegate, UINavigationControll
         
         let cropped = cropImage(image)
         
-        // TODO: change and call these methods in another place?
-        //containerViewController.dismiss(animated: true, completion: nil)
+        images.append(cropped)
         
-        
-        // delegate.documentScanner(self, willBeginScanningImage: cropped)
-        
-        let operation = CreateCodeOperation(image: cropped, tesseractDelegate: self.delegate) {
-            code in
-
-            NSLog(code)
-            if self.codes.count == self.maxCodes {
-                self.queue.cancelAllOperations()
-                self.queue.addOperation {
-                    self.finishTakingPhotos()
-                }
-            }
-            else {
-                self.codes.append(code)
-            }
+        if images.count >= Int(photosCount) {
+            queue.addOperation({
+                self.finishTakingPhotos()
+            })
         }
-        queue.addOperation(operation)
     }
     
     fileprivate func finishTakingPhotos() {
+        stopTakingPictures()
+        
+        for index in 0 ..< images.count {
+            let image = images[index]
+            if let code = Utils.mrCodeFrom(image: image, tesseractDelegate: delegate) {
+                codes.append(code)
+            }
+            let progress = Double(index + 1) / Double(images.count)
+            
+            DispatchQueue.main.async {
+                self.delegate.documentScanner(self, progressRecognition: progress)
+            }
+        }
+        
+        if codes.count == 0 {
+            failToRecognizeError()
+        }
         
         var resultCode = ""
-        
-        //TODO: delete this
-        for code in codes {
-            NSLog(code)
-            NSLog("\(code.characters.count)")
-//            if code.characters.count != 90 {
-//                assertionFailure()
-//            }
-        }
         
         let count = codes[0].characters.count
         for index in 0 ..< count {
@@ -189,19 +196,21 @@ extension DocumentScanner: UIImagePickerControllerDelegate, UINavigationControll
         
         if let info = DocumentInfo(recognizedText: resultCode) {
             DispatchQueue.main.async {
-                self.stopTakingPictures()
-                self.containerViewController.dismiss(animated: true, completion: nil)
                 self.delegate.documentScanner(self, didFinishScanningWithInfo: info)
             }
         }
         else {
+            failToRecognizeError()
+        }
+    }
+    
+    fileprivate func failToRecognizeError() {
+        DispatchQueue.main.async {
             let error = NSError(domain: DOErrorDomain, code: ErrorCodes.recognize, userInfo: [
                 NSLocalizedDescriptionKey : "Scanner has failed to recognize machine readable code from camera"
                 ])
             self.delegate.documentScanner(self, didFailWithError: error)
         }
-        
-        
     }
     
     fileprivate func chooseCharacterByVotesOn(index: Int) -> Character {
