@@ -13,25 +13,6 @@ extension String {
         return self.substring(with: fromIndex ..< toIndex)
     }
     
-//    func test() -> String {
-//        var result = self.characters.map({
-//            switch char {
-//            case "0": return "O"
-//            case "1": return "I"
-//            case "2": return "S"
-//            case "3": return "S"
-//            case "4": return "A"
-//            case "5": return "S"
-//            case "6": return "G"
-//            case "7": return "Z"
-//            case "8","9":
-//                      return "B"
-//                
-//            default: return char
-//        }
-//        return String(self.characters)
-//    }
-    
     func replaceNumbers() -> String {
         var result = ""
         for char in self.characters {
@@ -58,7 +39,8 @@ extension String {
         var result = ""
         for char in self.characters {
             switch char {
-            case "O": result.append("0")
+            case "O", "D":
+                      result.append("0")
             case "I", "L":
                       result.append("1")
             case "S": result.append("5")

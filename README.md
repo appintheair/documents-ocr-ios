@@ -48,17 +48,23 @@ You also need to set `Enable Bitcode` value to "No" in tesseract framework (targ
 
 ```swift
 class ExampleViewController: UIViewController, DocumentScannerDelegate {
-    	
-    func documentScanner(scanner: DocumentScanner, willBeginScanningImage image: UIImage) {
-        // do something with image
-    }
-    	
-    func documentScanner(scanner: DocumentScanner, didFinishScanningWithInfo info: DocumentInfo) {
+    
+    // required fucntions:
+    func documentScanner(_ scanner: DocumentScanner, didFinishScanningWithInfo info: DocumentInfo) {
         // do something with DocumentInfo instance
     }	
-    	
-    func documentScanner(scanner: DocumentScanner, didFailWithError error: NSError) {
+
+    func documentScanner(_ scanner: DocumentScanner, didFailWithError error: NSError) {
         // handle error
+    }   
+    
+    //optional funcitons:
+    func documentScanner(_ scanner: DocumentScanner, willBeginScanningImages images: [UIImage]) {
+        // do something with images
+    }
+    	
+    func documentScanner(_ scanner: DocumentScanner, recognitionProgress: Double) {
+        // present recognitionProgress value 
     }
     	
     // some other code here ...
@@ -73,6 +79,11 @@ Initialize `DocumentScanner` instance with references to `UIViewController` and 
 	var scanner = DocumentScanner(containerVC: self, withDelegate: self)
 ```
 
+Optionally you can set how many photos to take and time interval between them:
+```swift
+    scanner.photosCount = 10
+    scanner.takePhotoInterval = 1.0
+
 ### Present camera controller
 
 Scanner instance can present view controller with camera and border (actually, container view controller will do this inside document scanner instance).
@@ -84,23 +95,28 @@ Scanner instance can present view controller with camera and border (actually, c
 
 ### Events after "take shoot" button pressed
 
-After take shoot button pressed, these delegate methods called: 
+After take shoot button pressed, device take `photosCount` photos with `takePhotoInterval` time interval then these delegate methods call: 
 
 ```swift
-    func documentScanner(scanner: DocumentScanner, willBeginScanningImage image: UIImage)
+    func documentScanner(_ scanner: DocumentScanner, willBeginScanningImages images: [UIImage])
 
 ```
 
-Then if image was recognized successfull:
+When one of the images recognized
+```swift
+    func documentScanner(_ scanner: DocumentScanner, recognitionProgress: Double) 
+```
+
+Then if images were recognized successfull:
 
 ```swift
-    func documentScanner(scanner: DocumentScanner, didFinishScanningWithInfo info: DocumentInfo)
+    func documentScanner(_ scanner: DocumentScanner, didFinishScanningWithInfo info: DocumentInfo)
 ```
 
 If some error happened
 
 ```swift
-    func documentScanner(scanner: DocumentScanner, didFailWithError error: NSError)
+    func documentScanner(_ scanner: DocumentScanner, didFailWithError error: NSError)
 ```
 
 ## Author
@@ -121,7 +137,7 @@ Before using DocumentOCR, you must set Enable bitcode value to "No" in tesseract
 - [x] fix minor UI defects in example 
 - [x] code refactoring
 - [x] pod string for all versions (without using ~> version")
-- [ ] improve mr code recognition
-- [ ] check visa document recognitions
-- [ ] unit tests for camera shoots
-- [ ] take many pictures when "take shoot" button pressed, then choose best image for recognition
+- [x] improve mr code recognition
+- [x] check visa document recognitions
+- [ ] tests for camera shoots
+- [x] take many pictures when "take shoot" button pressed, then choose best image for recognition
