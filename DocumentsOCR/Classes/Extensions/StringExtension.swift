@@ -25,8 +25,8 @@ extension String {
             case "5": result.append("S")
             case "6": result.append("G")
             case "7": result.append("Z")
-            case "8": result.append("B")
-            case "9": result.append("B")
+            case "8",
+                 "9": result.append("B")
                 
             default: result.append(char)
             }
@@ -39,10 +39,12 @@ extension String {
         var result = ""
         for char in self.characters {
             switch char {
-            case "O", "D":
-                      result.append("0")
-            case "I", "L":
-                      result.append("1")
+            case "O",
+                 "D": result.append("0")
+                
+            case "I",
+                 "L": result.append("1")
+                
             case "S": result.append("5")
             case "A": result.append("4")
             case "G": result.append("6")

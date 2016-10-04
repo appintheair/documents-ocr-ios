@@ -2,6 +2,7 @@ use_frameworks!
 
 target 'DocumentsOCR_Example' do
   pod 'DocumentsOCR', :path => '../'
+  pod 'SVProgressHUD'
 
   target 'DocumentsOCR_Tests' do
     inherit! :search_paths

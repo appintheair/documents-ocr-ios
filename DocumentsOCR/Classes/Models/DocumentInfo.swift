@@ -10,7 +10,7 @@ import Foundation
 import TesseractOCR
 import PodAsset
 
-///gender
+/// Gender enumeration
 public enum Gender {
     case male, female, unknown
 }

@@ -78,7 +78,7 @@ open class Utils {
         
         let tesseract = G8Tesseract(language: "eng", configDictionary: [:], configFileNames: [], absoluteDataPath: tessdataURL.path, engineMode: .tesseractOnly, copyFilesFromResources: false)
         
-        var whiteList = Constants.alphabet.uppercased()
+        var whiteList = DOConstants.alphabet.uppercased()
         whiteList.append("<>1234567890")
         tesseract?.charWhitelist = whiteList
         

@@ -1,25 +1,28 @@
 PODS:
-  - DocumentsOCR (0.6.1):
+  - DocumentsOCR (0.7.0):
     - GPUImage
     - PodAsset
     - TesseractOCRiOS (~> 4.0.0)
   - GPUImage (0.1.7)
   - PodAsset (0.12.0)
+  - SVProgressHUD (2.0.3)
   - TesseractOCRiOS (4.0.0)
 
 DEPENDENCIES:
   - DocumentsOCR (from `../`)
+  - SVProgressHUD
 
 EXTERNAL SOURCES:
   DocumentsOCR:
     :path: ../
 
 SPEC CHECKSUMS:
-  DocumentsOCR: b5d0630d085e075917076029a225a2bac91ead98
+  DocumentsOCR: 57941b9ea95831ce389a75c2871e998ada07dae2
   GPUImage: 733a5f0fab92df9de1c37ba9df520a833ccb406d
   PodAsset: d6e724524e63725ef0c579354819ccc2dcbcf920
+  SVProgressHUD: b0830714205bea1317ea1a2ebc71e5633af334d4
   TesseractOCRiOS: 90638afbe43d082433f2e76b384c7901d23956df
 
-PODFILE CHECKSUM: 907e31037f951272b80e3591d4540e04d3e3fa69
+PODFILE CHECKSUM: cd9f61bbc718914f9f971ce0f0248a7f58e7038b
 
 COCOAPODS: 1.1.0.rc.2

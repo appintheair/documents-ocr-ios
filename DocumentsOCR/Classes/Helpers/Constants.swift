@@ -8,22 +8,21 @@
 
 import Foundation
 
-public let DOErrorDomain = "DocumentsOCRErrorDomain"
 
-struct ErrorCodes {
-    static let recognize = 0
-    static let noCamera = 1
+
+public struct DOErrorCodes {
+    public static let recognize = 0
+    public static let noCamera = 1
 }
 
 struct NibNames {
     static let cameraOverlayViewController = "CameraOverlayViewController"
 }
 
-struct Constants {
+public struct DOConstants {
+    public static let errorDomain = "DocumentsOCRErrorDomain"
     
-    static let alphabet = Constants.getAlphabet()
-    
-    fileprivate static func getAlphabet() -> String {
+    static let alphabet: String = {
         let aScalars = "a".unicodeScalars
         let aCode = aScalars[aScalars.startIndex].value
         
@@ -32,9 +31,9 @@ struct Constants {
         for i: UInt32 in (0 ..< 26) {
             result.append(Character(UnicodeScalar(aCode + i)!))
         }
-    
+        
         return result
-    }
+    }()
 }
 
 

@@ -53,10 +53,14 @@ open class DocumentScanner: NSObject {
     
     /// Time interval between taking photos
     open var takePhotoInterval = 0.2
+    
+    /// Recognized document information from RecognitionOperation
+    open var recognizedDocumentInfo: DocumentInfo? = nil
  
     var timer: Timer!
     var codes = [String]()
     var images = [UIImage]()
+    var recognizedInfo: DocumentInfo? = nil
     
     fileprivate let queue: OperationQueue = {
         let queue = OperationQueue()
@@ -109,30 +113,31 @@ open class DocumentScanner: NSObject {
             })
         }
         else {
-            let error = NSError(domain: DOErrorDomain, code: ErrorCodes.noCamera, userInfo: [
+            let error = NSError(domain: DOConstants.errorDomain, code: DOErrorCodes.noCamera, userInfo: [
                 NSLocalizedDescriptionKey : "Scanner unnable to find camera on this device"
                 ])
             delegate.documentScanner(self, didFailWithError: error)
         }
     }
     
+    open func cancelRecognizeOperation() {
+        queue.cancelAllOperations()
+    }
     
-    fileprivate var cameraOverlayView: CameraOverlayView {
+    fileprivate var cameraOverlayView: CameraOverlayView = {
         let bundle = PodAsset.bundle(forPod: "DocumentsOCR")
         let cameraVC = CameraOverlayViewController(nibName: NibNames.cameraOverlayViewController, bundle: bundle!)
         let overlayView = cameraVC.view as! CameraOverlayView
         
         return overlayView
-    }
+    }()
 }
 
 extension DocumentScanner: CameraViewDelegate {
     
     func stopTakingPictures() {
         timer.invalidate()
-        DispatchQueue.main.async {
-            self.containerViewController.dismiss(animated: true, completion: nil)
-        }
+        containerViewController.dismiss(animated: true, completion: nil)
     }
     
     func startTakingPictures() {
@@ -161,84 +166,27 @@ extension DocumentScanner: UIImagePickerControllerDelegate, UINavigationControll
         images.append(cropped)
         
         if images.count >= Int(photosCount) {
+            stopTakingPictures()
             delegate.documentScanner(self, willBeginScanningImages: images)
             
-            queue.addOperation({
-                self.scanPictures()
-            })
-        }
-    }
-    
-    fileprivate func scanPictures() {
-        stopTakingPictures()
-        
-        for index in 0 ..< images.count {
-            let image = images[index]
-            if let code = Utils.mrCodeFrom(image: image, tesseractDelegate: delegate) {
-                codes.append(code)
-            }
-            let progress = Double(index + 1) / Double(images.count)
+            let recognizeOperation = RecognizeOperation(scanner: self)
             
-            DispatchQueue.main.async {
-                self.delegate.documentScanner(self, recognitionProgress: progress)
+            recognizeOperation.completionBlock = {
+                if let info = self.recognizedInfo {
+                    self.delegate.documentScanner(self, didFinishScanningWithInfo: info)
+                }
+                else {
+                    let error = NSError(domain: DOConstants.errorDomain, code: DOErrorCodes.recognize, userInfo: [
+                        NSLocalizedDescriptionKey : "Scanner failed to recognize machine readable zone form camera shots"
+                        ])
+                    self.delegate.documentScanner(self, didFailWithError: error)
+                }
             }
-        }
-        
-        if codes.count == 0 {
-            failToRecognizeError()
-            return
-        }
-        
-        var resultCode = ""
-        
-        let count = codes[0].characters.count
-        for index in 0 ..< count {
-            let winnerCharacter = chooseCharacterByVotesOn(index: index)
-            resultCode.append(winnerCharacter)
-        }
-        
-        if let info = DocumentInfo(recognizedText: resultCode) {
-            DispatchQueue.main.async {
-                self.delegate.documentScanner(self, didFinishScanningWithInfo: info)
-            }
-        }
-        else {
-            failToRecognizeError()
+            
+            queue.addOperation(recognizeOperation)
         }
     }
-    
-    fileprivate func failToRecognizeError() {
-        DispatchQueue.main.async {
-            let error = NSError(domain: DOErrorDomain, code: ErrorCodes.recognize, userInfo: [
-                NSLocalizedDescriptionKey : "Scanner has failed to recognize machine readable code from camera"
-                ])
-            self.delegate.documentScanner(self, didFailWithError: error)
-        }
-    }
-    
-    fileprivate func chooseCharacterByVotesOn(index: Int) -> Character {
-        let characters = codes.map({ $0[index] })
-        
-        var voting = [Character : Int]()
-        for character in characters {
-            if let count = voting[character] {
-                voting[character] = count + 1
-            }
-            else {
-                voting[character] = 1
-            }
-        }
-        
-        let max = voting.values.max()!
-        for (character, count) in voting {
-            if count == max {
-                return character
-            }
-        }
-        
-        return characters[0]
-    }
-    
+
     fileprivate func cropImage(_ image: UIImage) -> UIImage {
         
         let viewControllerSize = containerViewController.view.frame.size
@@ -258,4 +206,3 @@ extension DocumentScanner: UIImagePickerControllerDelegate, UINavigationControll
         return image.croppedImageWithSize(rect)
     }
 }
-

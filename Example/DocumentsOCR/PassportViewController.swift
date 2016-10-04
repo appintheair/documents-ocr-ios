@@ -9,6 +9,7 @@
 import UIKit
 import Darwin
 import DocumentsOCR
+import SVProgressHUD
 
 class PassportViewController: UITableViewController {
 
@@ -91,15 +92,17 @@ class PassportViewController: UITableViewController {
 extension PassportViewController: DocumentScannerDelegate {
     
     func documentScanner(_ scanner: DocumentScanner, willBeginScanningImages images: [UIImage]) {
-        NSLog("will begin scanning")
+        self.cameraImageView.image = images.first!
+        SVProgressHUD.showProgress(0, status: "Scanning")
     }
     
     func documentScanner(_ scanner: DocumentScanner, recognitionProgress: Double) {
-        self.title = String(recognitionProgress)
+        SVProgressHUD.showProgress(Float(recognitionProgress), status: "Scanning")
     }
     
     func documentScanner(_ scanner: DocumentScanner, didFinishScanningWithInfo info: DocumentInfo) {
         NSLog("Info: \(info)")
+        SVProgressHUD.dismiss()
         
         countryField.text = info.issuingCountryCode
         surnameField.text = info.lastname
@@ -127,6 +130,7 @@ extension PassportViewController: DocumentScannerDelegate {
     
     func documentScanner(_ scanner: DocumentScanner, didFailWithError error: NSError) {
         NSLog("Ошибка \(error.localizedDescription)")
+        SVProgressHUD.dismiss()
         self.showErrorAlert(withMessage: error.localizedDescription)
     }
 }
