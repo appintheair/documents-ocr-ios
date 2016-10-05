@@ -46,7 +46,7 @@ open class CameraOverlayView: UIView {
     
     func resetViews() {
         takePhotoButton.isHidden = false
-        progressLabel.text = "Taking pictures"
+        progressLabel.text = ""
         progressView.progress = 0
         progressViewContainer.isHidden = true
     }

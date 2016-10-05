@@ -167,7 +167,7 @@ extension DocumentScanner: UIImagePickerControllerDelegate, UINavigationControll
         images.append(cropped)
         
         cameraOverlayView.progressView.progress = Float(images.count) / Float(photosCount)
-        cameraOverlayView.progressLabel.text = "Taking pictures: \(images.count) / \(photosCount)"
+        cameraOverlayView.progressLabel.text = "\(images.count) / \(photosCount)"
         
         if images.count >= Int(photosCount) {
             stopTakingPictures()

@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'DocumentsOCR'
-  s.version          = '0.8.0'
+  s.version          = '1.0.0'
   s.summary          = 'A Swift framework for machine readable documents recognition'
 
 # This description is used to generate tags and improve search results.

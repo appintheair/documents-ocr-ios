@@ -17,7 +17,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="cm0-0M-N08">
-                    <frame key="frameInset" minX="49.79%" width="79" height="78" maxY="10"/>
+                    <frame key="frameInset" minX="49.38%" width="79" height="78" maxY="10"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <state key="normal" title="Сканировать" image="circle.png"/>
                     <connections>
@@ -33,19 +33,19 @@
                     </connections>
                 </button>
                 <view contentMode="scaleToFill" misplaced="YES" id="aq8-eL-xhw">
-                    <frame key="frameInset" minX="-1" minY="49.87%" height="91" maxX="2"/>
+                    <frame key="frameInset" minX="-1" minY="49.61%" height="91" maxX="2"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" red="0.65969551282051275" green="0.18069087995348332" blue="0.19548233647129598" alpha="0.37365301724137934" colorSpace="custom" customColorSpace="sRGB"/>
                 </view>
                 <view hidden="YES" contentMode="scaleToFill" misplaced="YES" id="d9X-cr-gxH">
-                    <frame key="frameInset" minX="15" minY="31.39%" height="50" maxX="16"/>
+                    <frame key="frameInset" minX="15" minY="31.16%" height="50" maxX="16"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" misplaced="YES" id="tty-uX-5VZ">
                             <frame key="frameInset" minX="7" minY="85.42%" height="2" maxX="10"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                         </progressView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Taking pictures" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="rYM-tc-tec">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="rYM-tc-tec">
                             <frame key="frameInset" minX="2.42%" minY="25.00%" width="94.81%" height="22"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>

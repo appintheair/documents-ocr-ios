@@ -140,5 +140,5 @@ Before using DocumentOCR, you must set Enable bitcode value to "No" in tesseract
 - [x] pod string for all versions (without using ~> version")
 - [x] improve mr code recognition
 - [x] check visa document recognitions
+- [x] take many pictures when "take shoot" button pressed, then make best machine readable code
 - [ ] tests for camera shoots
-- [x] take many pictures when "take shoot" button pressed, then choose best image for recognition
