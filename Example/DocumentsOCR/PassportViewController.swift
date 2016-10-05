@@ -102,7 +102,7 @@ extension PassportViewController: DocumentScannerDelegate {
     
     func documentScanner(_ scanner: DocumentScanner, didFinishScanningWithInfo info: DocumentInfo) {
         NSLog("Info: \(info)")
-        SVProgressHUD.dismiss()
+        
         
         countryField.text = info.issuingCountryCode
         surnameField.text = info.lastname
@@ -125,7 +125,8 @@ extension PassportViewController: DocumentScannerDelegate {
         sexField.text = sex
         expiredDateField.text = info.expirationDate?.stringDate
         personalNumberField.text = info.personalNumber
-
+        
+        SVProgressHUD.dismiss()
     }
     
     func documentScanner(_ scanner: DocumentScanner, didFailWithError error: NSError) {

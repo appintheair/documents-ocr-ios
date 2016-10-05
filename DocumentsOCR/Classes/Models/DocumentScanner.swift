@@ -172,14 +172,16 @@ extension DocumentScanner: UIImagePickerControllerDelegate, UINavigationControll
             let recognizeOperation = RecognizeOperation(scanner: self)
             
             recognizeOperation.completionBlock = {
-                if let info = self.recognizedInfo {
-                    self.delegate.documentScanner(self, didFinishScanningWithInfo: info)
-                }
-                else {
-                    let error = NSError(domain: DOConstants.errorDomain, code: DOErrorCodes.recognize, userInfo: [
-                        NSLocalizedDescriptionKey : "Scanner failed to recognize machine readable zone form camera shots"
-                        ])
-                    self.delegate.documentScanner(self, didFailWithError: error)
+                DispatchQueue.main.async {
+                    if let info = self.recognizedInfo {
+                        self.delegate.documentScanner(self, didFinishScanningWithInfo: info)
+                    }
+                    else {
+                        let error = NSError(domain: DOConstants.errorDomain, code: DOErrorCodes.recognize, userInfo: [
+                            NSLocalizedDescriptionKey : "Scanner failed to recognize machine readable zone form camera shots"
+                            ])
+                        self.delegate.documentScanner(self, didFailWithError: error)
+                    }
                 }
             }
             
