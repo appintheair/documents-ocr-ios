@@ -21,8 +21,8 @@ public protocol DocumentScannerDelegate: G8TesseractDelegate {
     /// Tells the delegate that progress of photos recognition changed
     ///
     /// - parameter scanner:             The document scanner object informing the delegate of this event
-    /// - parameter progressRecognition: progress value from 0.0 to 1.0
-    func documentScanner(_ scanner: DocumentScanner, recognitionProgress: Double)
+    /// - parameter progress: progress value from 0.0 to 1.0
+    func documentScanner(_ scanner: DocumentScanner, recognitionProgress progress: Double)
 
     /// Tells the delegate that scanner finished to recognize machine readable code from camera image and translate it into DocumentInfo struct
     ///

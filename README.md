@@ -58,13 +58,13 @@ class ExampleViewController: UIViewController, DocumentScannerDelegate {
         // handle error
     }   
     
-    //optional funcitons:
+    //optional functions:
     func documentScanner(_ scanner: DocumentScanner, willBeginScanningImages images: [UIImage]) {
         // do something with images
     }
     	
-    func documentScanner(_ scanner: DocumentScanner, recognitionProgress: Double) {
-        // present recognitionProgress value 
+    func documentScanner(_ scanner: DocumentScanner, recognitionProgress progress: Double) {
+        // present current progress of recognition
     }
     	
     // some other code here ...

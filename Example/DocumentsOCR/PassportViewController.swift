@@ -96,8 +96,8 @@ extension PassportViewController: DocumentScannerDelegate {
         SVProgressHUD.showProgress(0, status: "Scanning")
     }
     
-    func documentScanner(_ scanner: DocumentScanner, recognitionProgress: Double) {
-        SVProgressHUD.showProgress(Float(recognitionProgress), status: "Scanning")
+    func documentScanner(_ scanner: DocumentScanner, recognitionProgress progress: Double) {
+        SVProgressHUD.showProgress(Float(progress), status: "Scanning")
     }
     
     func documentScanner(_ scanner: DocumentScanner, didFinishScanningWithInfo info: DocumentInfo) {
