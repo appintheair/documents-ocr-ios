@@ -18,14 +18,20 @@ open class CameraOverlayView: UIView {
     @IBOutlet weak var codeBorder: UIView!
     @IBOutlet weak var takePhotoButton: UIButton!
     
+    @IBOutlet weak var progressLabel: UILabel!
+    @IBOutlet weak var progressView: UIProgressView!
+    @IBOutlet weak var progressViewContainer: UIView!
+    
     var delegate: CameraViewDelegate!
     
     @IBAction func cancelButtonClicked(_ sender: UIButton) {
+        resetViews()
         delegate.stopTakingPictures()
     }
     
     @IBAction func scanButtonClicked(_ sender: UIButton) {
         takePhotoButton.isHidden = true
+        progressViewContainer.isHidden = false
         delegate.startTakingPictures()
     }
     
@@ -36,5 +42,12 @@ open class CameraOverlayView: UIView {
     required public init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)!
         self.isOpaque = false
+    }
+    
+    func resetViews() {
+        takePhotoButton.isHidden = false
+        progressLabel.text = "Taking pictures"
+        progressView.progress = 0
+        progressViewContainer.isHidden = true
     }
 }

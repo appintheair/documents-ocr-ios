@@ -108,6 +108,7 @@ open class DocumentScanner: NSObject {
                 overlayView.codeBorder.layer.borderColor = UIColor.red.cgColor
                 
                 overlayView.delegate = self
+                overlayView.resetViews()
                 
                 self.imagePicker.cameraOverlayView = overlayView
             })
@@ -165,8 +166,14 @@ extension DocumentScanner: UIImagePickerControllerDelegate, UINavigationControll
         
         images.append(cropped)
         
+        cameraOverlayView.progressView.progress = Float(images.count) / Float(photosCount)
+        cameraOverlayView.progressLabel.text = "Taking pictures: \(images.count) / \(photosCount)"
+        
         if images.count >= Int(photosCount) {
             stopTakingPictures()
+            
+            cameraOverlayView.resetViews()
+            
             delegate.documentScanner(self, willBeginScanningImages: images)
             
             let recognizeOperation = RecognizeOperation(scanner: self)
@@ -178,7 +185,7 @@ extension DocumentScanner: UIImagePickerControllerDelegate, UINavigationControll
                     }
                     else {
                         let error = NSError(domain: DOConstants.errorDomain, code: DOErrorCodes.recognize, userInfo: [
-                            NSLocalizedDescriptionKey : "Scanner failed to recognize machine readable zone form camera shots"
+                            NSLocalizedDescriptionKey : "Scanner has failed to recognize machine readable code from camera pictures"
                             ])
                         self.delegate.documentScanner(self, didFailWithError: error)
                     }

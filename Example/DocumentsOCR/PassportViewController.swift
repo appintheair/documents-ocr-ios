@@ -103,7 +103,6 @@ extension PassportViewController: DocumentScannerDelegate {
     func documentScanner(_ scanner: DocumentScanner, didFinishScanningWithInfo info: DocumentInfo) {
         NSLog("Info: \(info)")
         
-        
         countryField.text = info.issuingCountryCode
         surnameField.text = info.lastname
         
