@@ -1,6 +1,9 @@
 use_frameworks!
 
 target 'DocumentsOCR_Example' do
+    
+    
+  pod 'TesseractOCRiOS', :git => 'https://github.com/appintheair/Tesseract-OCR-iOS'
   pod 'DocumentsOCR', :path => '../'
   pod 'SVProgressHUD'
 

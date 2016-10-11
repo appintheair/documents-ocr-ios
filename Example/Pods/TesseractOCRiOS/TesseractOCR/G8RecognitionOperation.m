@@ -11,9 +11,9 @@
 
 #import "TesseractOCR.h"
 
-@interface G8RecognitionOperation() <G8TesseractDelegate>
-
-@property (nonatomic, strong, readwrite) G8Tesseract *tesseract;
+@interface G8RecognitionOperation() <G8TesseractDelegate> {
+    G8Tesseract *_tesseract;
+}
 @property (nonatomic, assign, readwrite) CGFloat progress;
 
 @end
@@ -28,8 +28,6 @@
         _tesseract.delegate = self;
 
         __weak __typeof(self) weakSelf = self;
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated"
         self.completionBlock = ^{
             __strong __typeof(weakSelf) strongSelf = weakSelf;
 
@@ -41,7 +39,6 @@
                 }];
             }
         };
-#pragma clang diagnostic pop
     }
     return self;
 }
@@ -76,6 +73,14 @@
         canceled = [self.delegate shouldCancelImageRecognitionForTesseract:tesseract];
     }
     return canceled;
+}
+
+- (UIImage *)preprocessedImageForTesseract:(G8Tesseract *)tesseract sourceImage:(UIImage *)sourceImage
+{
+    if ([self.delegate respondsToSelector:@selector(preprocessedImageForTesseract:sourceImage:)]) {
+        return [self.delegate preprocessedImageForTesseract:tesseract sourceImage:sourceImage];
+    }
+    return nil;
 }
 
 @end

@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'DocumentsOCR'
-  s.version          = '1.0.2'
+  s.version          = '1.0.3'
   s.summary          = 'A Swift framework for machine readable documents recognition'
 
 # This description is used to generate tags and improve search results.
@@ -42,6 +42,4 @@ Pod::Spec.new do |s|
   s.dependency 'TesseractOCRiOS', '~> 4.0.0'
   s.dependency 'PodAsset'
   s.dependency 'GPUImage'
-  
-  s.pod_target_xcconfig = { 'ENABLE_BITCODE' => 'NO' }
 end

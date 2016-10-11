@@ -26,7 +26,7 @@ open class Utils {
         let path = bundle.path(forResource: "eng", ofType: "traineddata")
         
         tesseract.delegate = tesseractDelegate!
-        tesseract.image = image
+        tesseract.image = image.recognitionImage
         
         tesseract.recognize()
         
@@ -76,7 +76,7 @@ open class Utils {
             createTessdataFrom(trainDataPath!, toDirectoryURL: tessdataURL, withDestinationURL: destinationURL)
         }
         
-        let tesseract = G8Tesseract(language: "eng", configDictionary: [:], configFileNames: [], absoluteDataPath: tessdataURL.path, engineMode: .tesseractOnly, copyFilesFromResources: false)
+        let tesseract = G8Tesseract(language: "eng", configDictionary: [:], configFileNames: [], absoluteDataPath: tessdataURL.path, engineMode: .tesseractOnly)
         
         var whiteList = DOConstants.alphabet.uppercased()
         whiteList.append("<>1234567890")

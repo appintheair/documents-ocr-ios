@@ -24,6 +24,10 @@ extension UIImage {
         return image
     }
     
+    var recognitionImage: UIImage {
+        return UIImage(cgImage: self.cgImage!, scale: self.scale, orientation: UIImageOrientation.left)
+    }
+    
     func save(_ path: String) {
         let png = UIImagePNGRepresentation(self)
         try? png?.write(to: URL(fileURLWithPath: path), options: [.atomic])

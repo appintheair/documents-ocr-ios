@@ -27,13 +27,12 @@ DocumentOCR framework uses
 ## Installation
 
 DocumentsOCR is [available](https://cocoapods.org/pods/DocumentsOCR) through [CocoaPods](http://cocoapods.org). To install
-it, simply add the following line to your Podfile:
+it, simply add the following lines to your Podfile:
 
 ```ruby
+pod 'TesseractOCRiOS', :git => 'https://github.com/appintheair/Tesseract-OCR-iOS'
 pod "DocumentsOCR"
 ```
-
-You also need to set `Enable Bitcode` value to "No" in tesseract framework (target TesseractOCRiOS -> Build settings -> Enable Bitcode)
 
 ## Usage
 
@@ -128,9 +127,6 @@ Michael Babaev, mmbabaev@gmail.com
 
 DocumentsOCR is available under the MIT license. See the LICENSE file for more info.
 
-## Issues:
-
-Before using DocumentOCR, you must set Enable bitcode value to "No" in tesseract framework (target TesseractOCRiOS -> Build settings -> Enable Bitcode)
 
 ### TODO
 
@@ -141,4 +137,5 @@ Before using DocumentOCR, you must set Enable bitcode value to "No" in tesseract
 - [x] improve mr code recognition
 - [x] check visa document recognitions
 - [x] take many pictures when "take shoot" button pressed, then make best machine readable code
+- [x] enable bitcode for tesseract framework 
 - [ ] tests for camera shoots
