@@ -23,7 +23,6 @@ open class Utils {
     }
     
     static func mrCodeFrom(image: UIImage, tesseractDelegate: G8TesseractDelegate? = nil) -> String? {
-        let path = bundle.path(forResource: "eng", ofType: "traineddata")
         
         tesseract.delegate = tesseractDelegate!
         tesseract.image = image.recognitionImage
@@ -75,8 +74,11 @@ open class Utils {
         if !FileManager.default.fileExists(atPath: destinationURL.path) {
             createTessdataFrom(trainDataPath!, toDirectoryURL: tessdataURL, withDestinationURL: destinationURL)
         }
-        
-        let tesseract = G8Tesseract(language: "eng", configDictionary: [:], configFileNames: [], absoluteDataPath: tessdataURL.path, engineMode: .tesseractOnly)
+
+        NSLog("\(cacheURL.path)")
+        NSLog("\(tessdataURL.path)")
+        NSLog("\(destinationURL.path)")
+        let tesseract = G8Tesseract(language: "eng", configDictionary: [:], configFileNames: [], cachesRelatedDataPath: "tesseract/tessdata", engineMode: .tesseractOnly)
         
         var whiteList = DOConstants.alphabet.uppercased()
         whiteList.append("<>1234567890")

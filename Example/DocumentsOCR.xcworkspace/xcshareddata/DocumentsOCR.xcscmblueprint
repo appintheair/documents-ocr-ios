@@ -1,23 +1,30 @@
 {
-  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "F58CA8BF9748A2452CAED5EE1AD1443C7F6654F4+++35C8851",
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "B3A2403691ADE80CF46872AA6E39C39881A146F4+++4805E2C",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
 
   },
   "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
-    "F58CA8BF9748A2452CAED5EE1AD1443C7F6654F4+++35C8851" : 9223372036854775807,
     "F58CA8BF9748A2452CAED5EE1AD1443C7F6654F4+++39A176C" : 9223372036854775807,
-    "F58CA8BF9748A2452CAED5EE1AD1443C7F6654F4+++665569A" : 9223372036854775807
+    "F58CA8BF9748A2452CAED5EE1AD1443C7F6654F4+++665569A" : 9223372036854775807,
+    "B3A2403691ADE80CF46872AA6E39C39881A146F4+++4805E2C" : 9223372036854775807,
+    "F58CA8BF9748A2452CAED5EE1AD1443C7F6654F4+++35C8851" : 9223372036854775807
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "9E0F3260-D4E0-4DA4-8DD8-16B33507544C",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
-    "F58CA8BF9748A2452CAED5EE1AD1443C7F6654F4+++35C8851" : "DocumentsOCR\/",
     "F58CA8BF9748A2452CAED5EE1AD1443C7F6654F4+++39A176C" : "",
-    "F58CA8BF9748A2452CAED5EE1AD1443C7F6654F4+++665569A" : ""
+    "F58CA8BF9748A2452CAED5EE1AD1443C7F6654F4+++665569A" : "",
+    "B3A2403691ADE80CF46872AA6E39C39881A146F4+++4805E2C" : "documents-ocr-ios-master\/",
+    "F58CA8BF9748A2452CAED5EE1AD1443C7F6654F4+++35C8851" : "DocumentsOCR\/"
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "DocumentsOCR",
   "DVTSourceControlWorkspaceBlueprintVersion" : 204,
   "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Example\/DocumentsOCR.xcworkspace",
   "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/appintheair\/documents-ocr-ios",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "B3A2403691ADE80CF46872AA6E39C39881A146F4+++4805E2C"
+    },
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/appintheair\/passport-ocr-ios",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
