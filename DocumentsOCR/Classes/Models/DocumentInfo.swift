@@ -35,13 +35,13 @@ public struct DocumentInfo {
     public let nationalityCode: String
     
     /// Date of birth
-    public let dateOfBirth: Date?
+    public let dateOfBirth: NSDate?
     
     /// Gender
     public let gender: Gender
     
     /// Expiration date of passport
-    public let expirationDate: Date?
+    public let expirationDate: NSDate?
     
     /// Personal number (may be used by the issuing country as it desires)
     public let personalNumber: String
@@ -56,18 +56,19 @@ public struct DocumentInfo {
         let regex = try! NSRegularExpression(pattern: Utils.passportPattern, options: [])
         
         let range = NSRange(location: 0, length: text.characters.count)
-        if let result = regex.firstMatch(in: text, options: [], range: range) {
+        
+        if let result = regex.firstMatchInString(text, options: [], range: range) {
             
-            mrCode = (text as NSString).substring(with: result.range)
+            mrCode = (text as NSString).substringWithRange(result.range)
             
             issuingCountryCode = result.group(atIndex: 4, fromSource: text).replaceNumbers()
             lastname = result.group(atIndex: 6, fromSource: text).replaceNumbers()
-            name = result.group(atIndex: 7, fromSource: text).replacingOccurrences(of: "<", with: " ").replaceNumbers()
+            name = result.group(atIndex: 7, fromSource: text).stringByReplacingOccurrencesOfString("<", withString: " ").replaceNumbers()
             passportNumber = result.group(atIndex: 9, fromSource: text)
             nationalityCode = result.group(atIndex: 11, fromSource: text).replaceNumbers()
             
             let dayOfBirthCode = result.group(atIndex: 12, fromSource: text).replaceLetters()
-            dateOfBirth = Date.dateFromPassportDateCode("19" + dayOfBirthCode)
+            dateOfBirth = NSDate.dateFromPassportDateCode("19" + dayOfBirthCode)
             
             let genderLetter = result.group(atIndex: 17, fromSource: text)
             switch genderLetter {
@@ -80,7 +81,7 @@ public struct DocumentInfo {
             }
             
             let expiralDateCode = result.group(atIndex: 18, fromSource: text).replaceLetters()
-            expirationDate = Date.dateFromPassportDateCode("20" + expiralDateCode)
+            expirationDate = NSDate.dateFromPassportDateCode("20" + expiralDateCode)
             
             personalNumber = result.group(atIndex: 23, fromSource: text)
             
@@ -98,7 +99,7 @@ public struct DocumentInfo {
     }
     
     init?(image: UIImage, tesseractDelegate: G8TesseractDelegate? = nil) {
-        if let mrCode = Utils.mrCodeFrom(image: image, tesseractDelegate: tesseractDelegate) {
+        if let mrCode = Utils.mrCodeFrom(image, tesseractDelegate: tesseractDelegate) {
             NSLog("Recognized: \(mrCode)")
             self.init(recognizedText: mrCode)
         }

@@ -13,7 +13,7 @@ protocol CameraViewDelegate {
     func startTakingPictures()
 }
 
-open class CameraOverlayView: UIView {
+public class CameraOverlayView: UIView {
     
     @IBOutlet weak var codeBorder: UIView!
     @IBOutlet weak var takePhotoButton: UIButton!
@@ -24,14 +24,14 @@ open class CameraOverlayView: UIView {
     
     var delegate: CameraViewDelegate!
     
-    @IBAction func cancelButtonClicked(_ sender: UIButton) {
+    @IBAction func cancelButtonClicked(sender: UIButton) {
         resetViews()
         delegate.stopTakingPictures()
     }
     
-    @IBAction func scanButtonClicked(_ sender: UIButton) {
-        takePhotoButton.isHidden = true
-        progressViewContainer.isHidden = false
+    @IBAction func scanButtonClicked(sender: UIButton) {
+        takePhotoButton.hidden = true
+        progressViewContainer.hidden = false
         delegate.startTakingPictures()
     }
     
@@ -41,13 +41,13 @@ open class CameraOverlayView: UIView {
     
     required public init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)!
-        self.isOpaque = false
+        self.opaque = false
     }
     
     func resetViews() {
-        takePhotoButton.isHidden = false
+        takePhotoButton.hidden = false
         progressLabel.text = ""
         progressView.progress = 0
-        progressViewContainer.isHidden = true
+        progressViewContainer.hidden = true
     }
 }

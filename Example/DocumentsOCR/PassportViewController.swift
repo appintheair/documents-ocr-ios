@@ -29,7 +29,7 @@ class PassportViewController: UITableViewController {
     
     @IBOutlet weak var cameraImageView: UIImageView!
     
-    let countries = Utils.stringFromTxtFile("CountryCodes")!.components(separatedBy: "\n")
+    let countries = Utils.stringFromTxtFile("CountryCodes")!.componentsSeparatedByString("\n")
     
     func dismissKeyboard() {
         self.view.endEditing(true)
@@ -38,7 +38,7 @@ class PassportViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first! as NSString
+        let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).first! as NSString
         NSLog("\(paths)")
         
         scanner = DocumentScanner(containerVC: self, withDelegate: self)
@@ -46,7 +46,7 @@ class PassportViewController: UITableViewController {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
         self.view.addGestureRecognizer(tapGesture)
         
-        self.cameraImageView.contentMode = .scaleAspectFit
+        self.cameraImageView.contentMode = .ScaleAspectFit
         
         // Set up country fields:
         
@@ -66,8 +66,8 @@ class PassportViewController: UITableViewController {
         // Set up date fields:
         
         let datePicker = UIDatePicker()
-        datePicker.addTarget(self, action: #selector(PassportViewController.datePickerValueChanged(_:)), for: .valueChanged)
-        datePicker.datePickerMode = UIDatePickerMode.date
+        datePicker.addTarget(self, action: #selector(PassportViewController.datePickerValueChanged(_:)), forControlEvents: .ValueChanged)
+        datePicker.datePickerMode = UIDatePickerMode.Date
         
         dobField.delegate = self
         expiredDateField.delegate = self
@@ -76,31 +76,31 @@ class PassportViewController: UITableViewController {
         expiredDateField.inputView = datePicker
     }
     
-    func datePickerValueChanged(_ sender: UIDatePicker) {
+    func datePickerValueChanged(sender: UIDatePicker) {
         selectedTextField.text = sender.date.stringDate
     }
     
-    @IBAction func cameraClicked(_ sender: UIBarButtonItem) {
+    @IBAction func cameraClicked(sender: UIBarButtonItem) {
         scanner.presentCameraViewController()
     }
     
-    override var supportedInterfaceOrientations : UIInterfaceOrientationMask {
-        return .portrait
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return .Portrait
     }
 }
 
 extension PassportViewController: DocumentScannerDelegate {
     
-    func documentScanner(_ scanner: DocumentScanner, willBeginScanningImages images: [UIImage]) {
+    func documentScanner(scanner: DocumentScanner, willBeginScanningImages images: [UIImage]) {
         self.cameraImageView.image = images.first!
         SVProgressHUD.showProgress(0, status: "Scanning")
     }
     
-    func documentScanner(_ scanner: DocumentScanner, recognitionProgress progress: Double) {
+    func documentScanner(scanner: DocumentScanner, recognitionProgress progress: Double) {
         SVProgressHUD.showProgress(Float(progress), status: "Scanning")
     }
     
-    func documentScanner(_ scanner: DocumentScanner, didFinishScanningWithInfo info: DocumentInfo) {
+    func documentScanner(scanner: DocumentScanner, didFinishScanningWithInfo info: DocumentInfo) {
         NSLog("Info: \(info)")
         
         countryField.text = info.issuingCountryCode
@@ -128,7 +128,7 @@ extension PassportViewController: DocumentScannerDelegate {
         SVProgressHUD.dismiss()
     }
     
-    func documentScanner(_ scanner: DocumentScanner, didFailWithError error: NSError) {
+    func documentScanner(scanner: DocumentScanner, didFailWithError error: NSError) {
         NSLog("Ошибка \(error.localizedDescription)")
         SVProgressHUD.dismiss()
         self.showErrorAlert(withMessage: error.localizedDescription)
@@ -137,7 +137,7 @@ extension PassportViewController: DocumentScannerDelegate {
 
 extension PassportViewController: UITextFieldDelegate {
     
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+    func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
         guard let passportField = textField as? PassportTextField else {
             NSLog("Ошибка: неверный тип текстового поля")
             return true
@@ -151,20 +151,20 @@ extension PassportViewController: UITextFieldDelegate {
 
 extension PassportViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
         return 1
     }
     
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return countries.count
     }
     
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return countries[row]
     }
     
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        selectedTextField?.text = countries[row].substring(from: 0, to: 2)
+    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        selectedTextField?.text = countries[row].substring(0, to: 2)
     }
 }
 

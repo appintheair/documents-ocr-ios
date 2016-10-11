@@ -3,32 +3,51 @@ import Foundation
 extension String {
     
     subscript (i: Int) -> Character {
-        let index = self.index(self.startIndex, offsetBy: i)
+        let index = self.startIndex.advancedBy(i)
         return self.characters[index]
     }
     
     func substring(from: Int, to: Int) -> String {
-        let fromIndex = self.index(self.startIndex, offsetBy: from)
-        let toIndex = self.index(self.startIndex, offsetBy: to + 1)
-        return self.substring(with: fromIndex ..< toIndex)
+        let fromIndex = self.startIndex.advancedBy(from)
+        let toIndex = self.startIndex.advancedBy(to + 1)
+        return self.substringWithRange(fromIndex ..< toIndex)
     }
     
     func replaceNumbers() -> String {
         var result = ""
         for char in self.characters {
             switch char {
-            case "0": result.append("O")
-            case "1": result.append("I")
-            case "2": result.append("S")
-            case "3": result.append("S")
-            case "4": result.append("A")
-            case "5": result.append("S")
-            case "6": result.append("G")
-            case "7": result.append("Z")
+            case "0":
+                result.appendContentsOf("O")
+                break;
+            case "1":
+                result.appendContentsOf("I")
+                break;
+            case "2":
+                result.appendContentsOf("S")
+                break;
+            case "3":
+                result.appendContentsOf("S")
+                break;
+            case "4":
+                result.appendContentsOf("A")
+                break;
+            case "5":
+                result.appendContentsOf("S")
+                break;
+            case "6":
+                result.appendContentsOf("G")
+                break;
+            case "7":
+                result.appendContentsOf("Z")
+                break;
             case "8",
-                 "9": result.append("B")
+                 "9":
+                result.appendContentsOf("B")
+                break;
                 
-            default: result.append(char)
+            default:
+                result.append(char)
             }
         }
         
@@ -40,16 +59,34 @@ extension String {
         for char in self.characters {
             switch char {
             case "O",
-                 "D": result.append("0")
+                 "D":
+                result.appendContentsOf("0")
+                break;
                 
             case "I",
-                 "L": result.append("1")
+                 "L":
+                result.appendContentsOf("1")
+                break;
                 
-            case "S": result.append("5")
-            case "A": result.append("4")
-            case "G": result.append("6")
-            case "Z": result.append("7")
-            case "B": result.append("8")
+            case "S":
+                result.appendContentsOf("5")
+                break;
+                
+            case "A":
+                result.appendContentsOf("4")
+                break;
+                
+            case "G":
+                result.appendContentsOf("6")
+                break;
+                
+            case "Z":
+                result.appendContentsOf("7")
+                break;
+                
+            case "B":
+                result.appendContentsOf("8")
+                break;
                 
             default: result.append(char)
             }

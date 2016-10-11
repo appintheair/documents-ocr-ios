@@ -8,7 +8,7 @@
 
 import Foundation
 
-class RecognizeOperation: Operation {
+class RecognizeOperation: NSOperation {
     let scanner: DocumentScanner
     var codes = [String]()
     
@@ -22,16 +22,16 @@ class RecognizeOperation: Operation {
         for index in 0 ..< images.count {
             let image = images[index]
             
-            if isCancelled {
+            if cancelled {
                 return
             }
             
-            if let code = Utils.mrCodeFrom(image: image, tesseractDelegate: scanner.delegate) {
+            if let code = Utils.mrCodeFrom(image, tesseractDelegate: scanner.delegate) {
                 codes.append(code)
             }
             let progress = Double(index + 1) / Double(images.count)
             
-            DispatchQueue.main.async {
+            dispatch_async(dispatch_get_main_queue()) {
                 self.scanner.delegate.documentScanner(self.scanner, recognitionProgress: progress)
             }
         }
@@ -44,15 +44,15 @@ class RecognizeOperation: Operation {
         
         let count = codes.first!.characters.count
         for index in 0 ..< count {
-            if isCancelled {
+            if cancelled {
                 return
             }
             
-            let winnerCharacter = chooseCharacterByVotesOn(index: index)
+            let winnerCharacter = chooseCharacterByVotesOn(index)
             resultCode.append(winnerCharacter)
         }
         
-        if isCancelled {
+        if cancelled {
             return
         }
         
@@ -61,7 +61,7 @@ class RecognizeOperation: Operation {
         }
     }
     
-    fileprivate func chooseCharacterByVotesOn(index: Int) -> Character {
+    private func chooseCharacterByVotesOn(index: Int) -> Character {
         let characters = codes.map({ $0[index] })
         
         var voting = [Character : Int]()
@@ -74,7 +74,7 @@ class RecognizeOperation: Operation {
             }
         }
         
-        let max = voting.values.max()!
+        let max = voting.values.maxElement()!
         for (character, count) in voting {
             if count == max {
                 return character

@@ -15,7 +15,7 @@ enum TextFieldType {
 class PassportTextField: UITextField {
     var editType: TextFieldType {
         set {
-            editTypeValue = String(describing: newValue)
+            editTypeValue = String(newValue)
         }
         get {
             switch editTypeValue {

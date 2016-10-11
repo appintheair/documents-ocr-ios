@@ -12,24 +12,18 @@ import GPUImage
 
 extension UIImage {
     func croppedImageWithSize(_ rect: CGRect) -> UIImage {
+        let imageRef = CGImageCreateWithImageInRect(self.CGImage!, rect)
         
-        let imageRef: CGImage! = self.cgImage!.cropping(to: rect)
-        
-        let croppedImage: UIImage = UIImage(cgImage: imageRef, scale: self.scale, orientation: self.imageOrientation)
+        let croppedImage: UIImage = UIImage(CGImage: imageRef!, scale: self.scale, orientation: self.imageOrientation)
         
         let selectedFilter = GPUImageTransformFilter()
-        selectedFilter.setInputRotation(kGPUImageNoRotation, at: 0)
-        let image: UIImage = selectedFilter.image(byFilteringImage: croppedImage)
+        selectedFilter.setInputRotation(kGPUImageNoRotation, atIndex: 0)
+        let image = selectedFilter.imageByFilteringImage(croppedImage)
         
         return image
     }
     
     var recognitionImage: UIImage {
-        return UIImage(cgImage: self.cgImage!, scale: self.scale, orientation: UIImageOrientation.left)
-    }
-    
-    func save(_ path: String) {
-        let png = UIImagePNGRepresentation(self)
-        try? png?.write(to: URL(fileURLWithPath: path), options: [.atomic])
+        return UIImage(CGImage: self.CGImage!, scale: self.scale, orientation: UIImageOrientation.Left)
     }
 }

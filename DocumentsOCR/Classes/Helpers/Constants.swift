@@ -29,7 +29,7 @@ public struct DOConstants {
         var result = ""
         
         for i: UInt32 in (0 ..< 26) {
-            result.append(Character(UnicodeScalar(aCode + i)!))
+            result.append(Character(UnicodeScalar(aCode + i)))
         }
         
         return result
