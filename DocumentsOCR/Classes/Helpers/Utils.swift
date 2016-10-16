@@ -63,24 +63,20 @@ public class Utils {
         return "\(resultFirstRow)\n\(String(secondRow))\n"
     }
     
-    private static func createTesseract() -> G8Tesseract {
-        let fileManager = NSFileManager.defaultManager()
-        
+   private static func createTesseract() -> G8Tesseract {
         let trainDataPath = bundle.pathForResource("eng", ofType: "traineddata")
         
-        let cacheURL = fileManager.URLsForDirectory(.CachesDirectory, inDomains: .UserDomainMask).first!
+        let cacheURL = NSFileManager.defaultManager().URLsForDirectory(.CachesDirectory, inDomains: .UserDomainMask).first!
         
-        let tessdataURL = cacheURL.URLByAppendingPathComponent("tesseract", isDirectory: true)!
-        let destinationURL = tessdataURL.URLByAppendingPathComponent("eng.traineddata")!
+        let tessdataURL = cacheURL.URLByAppendingPathComponent("tessetact", isDirectory: true)?.URLByAppendingPathComponent("tessdata", isDirectory: true)
         
-        if !fileManager.fileExistsAtPath(destinationURL.path!) {
-            createTessdataFrom(trainDataPath!, toDirectoryURL: tessdataURL, withDestinationURL: destinationURL)
+        let destinationURL = tessdataURL!.URLByAppendingPathComponent("eng.traineddata")
+        
+        if !NSFileManager.defaultManager().fileExistsAtPath(destinationURL!.path!) {
+        createTessdataFrom(trainDataPath!, toDirectoryURL: tessdataURL!, withDestinationURL: destinationURL!)
         }
-
-        NSLog("\(cacheURL.path)")
-        NSLog("\(tessdataURL.path)")
-        NSLog("\(destinationURL.path)")
-        let tesseract = G8Tesseract(language: "eng", configDictionary: [:], configFileNames: [], cachesRelatedDataPath: "tesseract/tessdata", engineMode: .TesseractOnly)
+        
+        let tesseract = G8Tesseract(language: "eng", configDictionary: [:], configFileNames: [], absoluteDataPath: tessdataURL!.path, engineMode: .TesseractOnly)
         
         var whiteList = DOConstants.alphabet.uppercaseString
         whiteList.appendContentsOf("<>1234567890")
@@ -90,6 +86,7 @@ public class Utils {
         
         return tesseract!
     }
+
     
     private static func createTessdataFrom(_ filePath: String, toDirectoryURL tessdataURL: NSURL, withDestinationURL destinationURL: NSURL) {
         do {
