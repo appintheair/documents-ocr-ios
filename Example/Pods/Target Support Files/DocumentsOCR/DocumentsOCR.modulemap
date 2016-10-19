@@ -1,6 +1,0 @@
-framework module DocumentsOCR {
-  umbrella header "DocumentsOCR-umbrella.h"
-
-  export *
-  module * { export * }
-}
