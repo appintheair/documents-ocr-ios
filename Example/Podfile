@@ -1,16 +1,13 @@
 use_frameworks!
 
+# ignore all warnings from all pods
+inhibit_all_warnings!
+
 target 'DocumentsOCR_Example' do
-    
     
   pod 'TesseractOCRiOS', :git => 'https://github.com/appintheair/Tesseract-OCR-iOS'
   pod 'DocumentsOCR', :path => '../'
   pod 'SVProgressHUD'
-
-  target 'DocumentsOCR_Tests' do
-    inherit! :search_paths
-
-    
-  end
+  
 end
 

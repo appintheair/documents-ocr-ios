@@ -15,9 +15,9 @@ public enum Gender {
     case male, female, unknown
 }
 
-/// Struct-container for recognition fields of passport machine readable code
+/// Class-container for recognition fields of passport machine readable code
 
-public struct DocumentInfo {
+open class DocumentInfo: NSObject {
     
     /// Issuing country or organization (ISO 3166-1 alpha-3 code with modifications)
     public let issuingCountryCode: String
@@ -97,13 +97,13 @@ public struct DocumentInfo {
         }
     }
     
-    init?(image: UIImage, tesseractDelegate: G8TesseractDelegate? = nil) {
+    convenience init?(image: UIImage, tesseractDelegate: G8TesseractDelegate? = nil) {
         if let mrCode = Utils.mrCodeFrom(image: image, tesseractDelegate: tesseractDelegate) {
             NSLog("Recognized: \(mrCode)")
             self.init(recognizedText: mrCode)
         }
         else {
-            return nil
+            self.init(recognizedText: "")
         }
     }
 }

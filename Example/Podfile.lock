@@ -1,5 +1,5 @@
 PODS:
-  - DocumentsOCR (1.0.3):
+  - DocumentsOCR (1.0.4):
     - GPUImage
     - PodAsset
     - TesseractOCRiOS (~> 4.0.0)
@@ -25,7 +25,7 @@ CHECKOUT OPTIONS:
     :git: https://github.com/appintheair/Tesseract-OCR-iOS
 
 SPEC CHECKSUMS:
-  DocumentsOCR: 6c84b18b230402fa12d7a5f9fea7eca564eca893
+  DocumentsOCR: 3acf8049731a1a3482290a54a9a39ce2e15df6b7
   GPUImage: 733a5f0fab92df9de1c37ba9df520a833ccb406d
   PodAsset: d6e724524e63725ef0c579354819ccc2dcbcf920
   SVProgressHUD: b0830714205bea1317ea1a2ebc71e5633af334d4
@@ -33,4 +33,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 18dff8c7466af2f5ef701624329ece0921fcf3b7
 
-COCOAPODS: 1.1.0.rc.2
+COCOAPODS: 1.2.1

@@ -11,7 +11,7 @@ import TesseractOCR
 import PodAsset
 
 /// The delegate of a DocumentScaner object must adopt the DocumentScannerDelegate protocol. Methods of protocol allow use result of document machine readable code recognition, handle errors if something went wrong. In addition, this protocol inherit G8TesseractDelegate protocol, so you can handle progress of image recognition (optional).
-public protocol DocumentScannerDelegate: G8TesseractDelegate {
+@objc public protocol DocumentScannerDelegate: G8TesseractDelegate {
     /// Tells the delegate that user press take photo button, contains reference to cropped image from camera shoot
     ///
     /// - parameter scanner: The document scanner object informing the delegate of this event
