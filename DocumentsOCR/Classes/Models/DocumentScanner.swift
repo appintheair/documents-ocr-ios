@@ -57,7 +57,7 @@ open class DocumentScanner: NSObject {
     /// Recognized document information from RecognitionOperation
     open var recognizedDocumentInfo: DocumentInfo? = nil
  
-    var timer: Timer!
+    var timer: Timer?
     var codes = [String]()
     var images = [UIImage]()
     var recognizedInfo: DocumentInfo? = nil
@@ -137,7 +137,7 @@ open class DocumentScanner: NSObject {
 extension DocumentScanner: CameraViewDelegate {
     
     func stopTakingPictures() {
-        timer.invalidate()
+        timer?.invalidate()
         containerViewController.dismiss(animated: true, completion: nil)
     }
     
