@@ -4,11 +4,11 @@
 //
 //  Created by Михаил on 01.10.16.
 //
-//
 
 import Foundation
 
 class RecognizeOperation: Operation {
+
     let scanner: DocumentScanner
     var codes = [String]()
     
@@ -17,9 +17,11 @@ class RecognizeOperation: Operation {
     }
     
     override func main() {
+
         let images = scanner.images
         
         for index in 0 ..< images.count {
+
             let image = images[index]
             
             if isCancelled {
@@ -29,6 +31,7 @@ class RecognizeOperation: Operation {
             if let code = Utils.mrCodeFrom(image: image, tesseractDelegate: scanner.delegate) {
                 codes.append(code)
             }
+
             let progress = Double(index + 1) / Double(images.count)
             
             DispatchQueue.main.async {
@@ -41,9 +44,10 @@ class RecognizeOperation: Operation {
         }
         
         var resultCode = ""
-        
-        let count = codes.first!.characters.count
+        let count = codes.first!.count
+
         for index in 0 ..< count {
+
             if isCancelled {
                 return
             }
@@ -62,9 +66,10 @@ class RecognizeOperation: Operation {
     }
     
     fileprivate func chooseCharacterByVotesOn(index: Int) -> Character {
+
         let characters = codes.map({ $0[index] })
-        
         var voting = [Character : Int]()
+
         for character in characters {
             if let count = voting[character] {
                 voting[character] = count + 1
@@ -75,6 +80,7 @@ class RecognizeOperation: Operation {
         }
         
         let max = voting.values.max()!
+
         for (character, count) in voting {
             if count == max {
                 return character
